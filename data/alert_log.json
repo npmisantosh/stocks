@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "exported_at": "2026-06-02T22:30:51.382630",
+  "exported_at": "2026-06-02T22:31:03.085342",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [],
@@ -67,90 +67,6 @@
     }
   ],
   "closed_trades": [
-    {
-      "ticker": "GOOGL",
-      "entry_price": 376.3699951171875,
-      "close_price": 361.8399963378906,
-      "entry_date": "2026-06-01",
-      "close_date": "2026-06-02",
-      "expected_return_pct": 5.5,
-      "actual_return_pct": -3.86,
-      "hold_days": 8,
-      "days_held": 5,
-      "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "trend_1",
-      "sell_signal_type": null
-    },
-    {
-      "ticker": "META",
-      "entry_price": 600.469970703125,
-      "close_price": 597.6400146484375,
-      "entry_date": "2026-06-01",
-      "close_date": "2026-06-02",
-      "expected_return_pct": 4.0,
-      "actual_return_pct": -0.47,
-      "hold_days": 6,
-      "days_held": 3,
-      "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "vol_2",
-      "sell_signal_type": null
-    },
-    {
-      "ticker": "GOOGL",
-      "entry_price": 376.3699951171875,
-      "close_price": 361.8399963378906,
-      "entry_date": "2026-06-01",
-      "close_date": "2026-06-02",
-      "expected_return_pct": 5.5,
-      "actual_return_pct": -3.86,
-      "hold_days": 8,
-      "days_held": 5,
-      "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "trend_1",
-      "sell_signal_type": null
-    },
-    {
-      "ticker": "META",
-      "entry_price": 600.469970703125,
-      "close_price": 597.6400146484375,
-      "entry_date": "2026-06-01",
-      "close_date": "2026-06-02",
-      "expected_return_pct": 4.0,
-      "actual_return_pct": -0.47,
-      "hold_days": 6,
-      "days_held": 3,
-      "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "vol_2",
-      "sell_signal_type": null
-    },
-    {
-      "ticker": "ABNB",
-      "entry_price": 137.8699951171875,
-      "close_price": 137.8699951171875,
-      "entry_date": "2026-06-01",
-      "close_date": "2026-06-02",
-      "expected_return_pct": 3.0,
-      "actual_return_pct": 0.0,
-      "hold_days": 4,
-      "days_held": 3,
-      "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "",
-      "sell_signal_type": "STOCH_OVERBOUGHT"
-    },
-    {
-      "ticker": "SPY",
-      "entry_price": 758.5399780273438,
-      "close_price": 758.5399780273438,
-      "entry_date": "2026-06-01",
-      "close_date": "2026-06-01",
-      "expected_return_pct": 4.5,
-      "actual_return_pct": 0.0,
-      "hold_days": 6,
-      "days_held": 2,
-      "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "trend_1",
-      "sell_signal_type": "RSI_OVERBOUGHT"
-    },
     {
       "ticker": "AAPL",
       "entry_price": 306.3099975585937,
@@ -220,38 +136,74 @@
       "exit_reason": "SELL_SIGNAL",
       "signal_reason": "trend_4",
       "sell_signal_type": "MACD_BEARISH"
+    },
+    {
+      "ticker": "SPY",
+      "entry_price": 758.5399780273438,
+      "close_price": 758.5399780273438,
+      "entry_date": "2026-06-01",
+      "close_date": "2026-06-01",
+      "expected_return_pct": 4.5,
+      "actual_return_pct": 0.0,
+      "hold_days": 6,
+      "days_held": 2,
+      "exit_reason": "SELL_SIGNAL",
+      "signal_reason": "trend_1",
+      "sell_signal_type": "RSI_OVERBOUGHT"
+    },
+    {
+      "ticker": "ABNB",
+      "entry_price": 137.8699951171875,
+      "close_price": 137.8699951171875,
+      "entry_date": "2026-06-01",
+      "close_date": "2026-06-02",
+      "expected_return_pct": 3.0,
+      "actual_return_pct": 0.0,
+      "hold_days": 4,
+      "days_held": 3,
+      "exit_reason": "SELL_SIGNAL",
+      "signal_reason": "",
+      "sell_signal_type": "STOCH_OVERBOUGHT"
+    },
+    {
+      "ticker": "GOOGL",
+      "entry_price": 376.3699951171875,
+      "close_price": 361.8399963378906,
+      "entry_date": "2026-06-01",
+      "close_date": "2026-06-02",
+      "expected_return_pct": 5.5,
+      "actual_return_pct": -3.86,
+      "hold_days": 8,
+      "days_held": 5,
+      "exit_reason": "SELL_SIGNAL",
+      "signal_reason": "trend_1",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "META",
+      "entry_price": 600.469970703125,
+      "close_price": 597.6400146484375,
+      "entry_date": "2026-06-01",
+      "close_date": "2026-06-02",
+      "expected_return_pct": 4.0,
+      "actual_return_pct": -0.47,
+      "hold_days": 6,
+      "days_held": 3,
+      "exit_reason": "SELL_SIGNAL",
+      "signal_reason": "vol_2",
+      "sell_signal_type": null
     }
   ],
   "performance_summary": {
-    "total_trades": 11,
+    "total_trades": 9,
     "win_count": 0,
-    "loss_count": 11,
+    "loss_count": 9,
     "win_rate_pct": 0.0,
-    "avg_return_pct": -0.79,
-    "avg_hold_days": 1.9,
+    "avg_return_pct": -0.48,
+    "avg_hold_days": 1.4,
     "best_trade_pct": 0.0,
     "worst_trade_pct": -3.86,
     "by_ticker": {
-      "GOOGL": {
-        "count": 2,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": -3.86
-      },
-      "META": {
-        "count": 2,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": -0.47
-      },
-      "ABNB": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "SPY": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
       "AAPL": {
         "count": 1,
         "win_rate_pct": 0.0,
@@ -276,6 +228,26 @@
         "count": 1,
         "win_rate_pct": 0.0,
         "avg_return_pct": 0.0
+      },
+      "SPY": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": 0.0
+      },
+      "ABNB": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": 0.0
+      },
+      "GOOGL": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": -3.86
+      },
+      "META": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": -0.47
       }
     }
   }
