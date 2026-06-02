@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #000000;
+  --bg-card: #0a0a0a;
+  --bg-elevated: #111111;
+  --bg-hover: #141414;
+  --border: #1e1e1e;
+  --border-bright: #2a2a2a;
+  --green: #00ff88;
+  --green-dim: #00cc6a;
+  --green-glow: rgba(0, 255, 136, 0.15);
+  --red: #ff3b3b;
+  --red-dim: #cc2f2f;
+  --red-glow: rgba(255, 59, 59, 0.15);
+  --amber: #ffcc00;
+  --amber-dim: #cca300;
+  --blue: #00aaff;
+  --purple: #aa77ff;
+  --text: #e0e0e0;
+  --text-dim: #777777;
+  --text-bright: #ffffff;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+/* Selection */
+::selection { background: var(--green-glow); color: var(--green); }
+
+/* Focus */
+:focus-visible {
+  outline: 1px solid var(--green-dim);
+  outline-offset: 1px;
+}
+
+/* Bloomberg-style label */
+.bloomberg-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* Positive / Negative */
+.positive { color: var(--green); }
+.negative { color: var(--red); }
+.neutral   { color: var(--text-dim); }
+
+/* Subtle glow on positive */
+.positive-glow { color: var(--green); text-shadow: 0 0 8px var(--green-glow); }
+.negative-glow { color: var(--red);   text-shadow: 0 0 8px var(--red-glow); }
+
+/* Table rows */
+.trade-row:hover { background-color: var(--bg-hover); }
+.trade-row { transition: background 100ms; }
+
+/* Scanline overlay */
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Cursor blink */
+.cursor::before {
+  content: '█';
+  animation: blink 1s step-end infinite;
+  color: var(--green);
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Ticker tape */
+.ticker-tape {
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.ticker-tape span {
+  display: inline-block;
+  padding-right: 32px;
+}
+.ticker-tape span.up { color: var(--green); }
+.ticker-tape span.down { color: var(--red); }
