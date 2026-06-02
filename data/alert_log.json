@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "exported_at": "2026-06-02T07:00:00-04:00",
+  "system_status": "active",
+  "day_score": 81.4,
+  "signals": [],
+  "open_positions": [],
+  "closed_trades": [],
+  "performance_summary": {
+    "total_trades": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "avg_return_pct": 0,
+    "avg_hold_days": 0,
+    "best_trade_pct": 0,
+    "worst_trade_pct": 0,
+    "by_combo": {},
+    "by_ticker": {}
+  }
+}
