@@ -7,7 +7,11 @@ const navItems = [
   { to: '/performance',label: 'PERFORMANCE' },
 ]
 
-export default function Sidebar() {
+interface SidebarProps {
+  exportedAt: string
+}
+
+export default function Sidebar({ exportedAt }: SidebarProps) {
   return (
     <aside className="hidden md:flex w-48 bg-bg-card border-r border-border flex-col">
       {/* Logo / Brand */}
@@ -35,9 +39,10 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* Status footer */}
+      {/* Exported timestamp */}
       <div className="px-4 py-3 border-t border-border">
-        <div className="text-2xs text-text-dim font-mono">STATUS: <span className="text-green">LIVE</span></div>
+        <div className="text-2xs text-text-dim font-mono">EXPORTED</div>
+        <div className="text-2xs text-text font-mono mt-0.5">{exportedAt}</div>
       </div>
     </aside>
   )

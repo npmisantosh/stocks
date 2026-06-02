@@ -6,12 +6,16 @@ import DashboardPage from './pages/DashboardPage'
 import OpenPositionsPage from './pages/OpenPositionsPage'
 import ClosedTradesPage from './pages/ClosedTradesPage'
 import PerformancePage from './pages/PerformancePage'
+import { useAlertData } from './hooks/useAlertData'
 
 export default function App() {
+  const { data } = useAlertData()
+  const exportedAt = data?.exported_at ?? '—'
+
   return (
     <BrowserRouter>
       <div className="flex min-h-screen bg-bg">
-        <Sidebar />
+        <Sidebar exportedAt={exportedAt} />
         <MobileNav />
         <div className="flex-1 flex flex-col min-w-0">
           <Header />
