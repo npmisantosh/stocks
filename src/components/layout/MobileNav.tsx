@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 
 const navItems = [
@@ -13,7 +13,7 @@ export default function MobileNav() {
   const location = useLocation()
 
   return (
-    <>
+    <Fragment>
       {/* Hamburger button — only shown on mobile */}
       <button
         onClick={() => setOpen(!open)}
@@ -73,6 +73,6 @@ export default function MobileNav() {
           <div className="text-2xs text-text-dim font-mono">STATUS: <span className="text-green">LIVE</span></div>
         </div>
       </aside>
-    </>
+    </Fragment>
   )
 }
