@@ -9,7 +9,7 @@ interface UseAlertDataResult {
   refetch: () => void
 }
 
-export function useAlertData(url?: string): UseAlertDataResult {
+export function useAlertData(): UseAlertDataResult {
   const [data, setData] = useState<AlertLog | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -18,14 +18,14 @@ export function useAlertData(url?: string): UseAlertDataResult {
     setLoading(true)
     setError(null)
     try {
-      const result = await fetchAlertLog(url)
+      const result = await fetchAlertLog()
       setData(result)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error')
     } finally {
       setLoading(false)
     }
-  }, [url])
+  }, [])
 
   useEffect(() => {
     fetch()
