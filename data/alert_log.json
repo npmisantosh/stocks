@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "exported_at": "2026-06-02T18:18:35.543351",
+  "exported_at": "2026-06-02T18:53:49.844621",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [],
@@ -54,6 +54,28 @@
       "entry_price": 1082.199951171875,
       "target_price": 1130.8989489746093,
       "stop_price": 1049.7339526367186,
+      "expected_return_pct": 3.0,
+      "hold_days": 4,
+      "days_held": 0,
+      "entry_date": "2026-06-02",
+      "state": "PENDING"
+    },
+    {
+      "ticker": "ABBV",
+      "entry_price": 212.92999267578125,
+      "target_price": 222.5118423461914,
+      "stop_price": 206.5420928955078,
+      "expected_return_pct": 3.0,
+      "hold_days": 4,
+      "days_held": 0,
+      "entry_date": "2026-06-02",
+      "state": "PENDING"
+    },
+    {
+      "ticker": "MRK",
+      "entry_price": 115.16999816894533,
+      "target_price": 120.35264808654784,
+      "stop_price": 111.71489822387694,
       "expected_return_pct": 3.0,
       "hold_days": 4,
       "days_held": 0,
