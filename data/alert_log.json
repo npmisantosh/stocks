@@ -1,21 +1,10 @@
 {
   "version": "1.0",
-  "exported_at": "2026-06-02T18:53:49.844621",
+  "exported_at": "2026-06-02T20:00:46.427449",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [],
   "open_positions": [
-    {
-      "ticker": "GOOGL",
-      "entry_price": 376.3699951171875,
-      "target_price": 407.2323347167969,
-      "stop_price": 365.0788952636719,
-      "expected_return_pct": 5.5,
-      "hold_days": 8,
-      "days_held": 5,
-      "entry_date": "2026-06-01",
-      "state": "HELD_ANOTHER"
-    },
     {
       "ticker": "AMZN",
       "entry_price": 261.260009765625,
@@ -23,18 +12,7 @@
       "stop_price": 253.42220947265625,
       "expected_return_pct": 4.0,
       "hold_days": 6,
-      "days_held": 5,
-      "entry_date": "2026-06-01",
-      "state": "HELD_ANOTHER"
-    },
-    {
-      "ticker": "META",
-      "entry_price": 600.469970703125,
-      "target_price": 636.4981689453125,
-      "stop_price": 582.4558715820312,
-      "expected_return_pct": 4.0,
-      "hold_days": 6,
-      "days_held": 3,
+      "days_held": 6,
       "entry_date": "2026-06-01",
       "state": "HELD_ANOTHER"
     },
@@ -45,9 +23,9 @@
       "stop_price": 76.28079940795898,
       "expected_return_pct": 3.0,
       "hold_days": 4,
-      "days_held": 0,
+      "days_held": 1,
       "entry_date": "2026-06-02",
-      "state": "PENDING"
+      "state": "HELD_ANOTHER"
     },
     {
       "ticker": "LLY",
@@ -56,9 +34,9 @@
       "stop_price": 1049.7339526367186,
       "expected_return_pct": 3.0,
       "hold_days": 4,
-      "days_held": 0,
+      "days_held": 1,
       "entry_date": "2026-06-02",
-      "state": "PENDING"
+      "state": "HELD_ANOTHER"
     },
     {
       "ticker": "ABBV",
@@ -67,9 +45,9 @@
       "stop_price": 206.5420928955078,
       "expected_return_pct": 3.0,
       "hold_days": 4,
-      "days_held": 0,
+      "days_held": 1,
       "entry_date": "2026-06-02",
-      "state": "PENDING"
+      "state": "HELD_ANOTHER"
     },
     {
       "ticker": "MRK",
@@ -78,12 +56,60 @@
       "stop_price": 111.71489822387694,
       "expected_return_pct": 3.0,
       "hold_days": 4,
-      "days_held": 0,
+      "days_held": 1,
       "entry_date": "2026-06-02",
-      "state": "PENDING"
+      "state": "HELD_ANOTHER"
     }
   ],
   "closed_trades": [
+    {
+      "ticker": "GOOGL",
+      "entry_price": 376.3699951171875,
+      "close_price": 361.8399963378906,
+      "entry_date": "2026-06-01",
+      "close_date": "2026-06-02",
+      "expected_return_pct": 5.5,
+      "actual_return_pct": -3.86,
+      "hold_days": 8,
+      "exit_reason": "SELL_SIGNAL",
+      "days_held": 5
+    },
+    {
+      "ticker": "META",
+      "entry_price": 600.469970703125,
+      "close_price": 597.6400146484375,
+      "entry_date": "2026-06-01",
+      "close_date": "2026-06-02",
+      "expected_return_pct": 4.0,
+      "actual_return_pct": -0.47,
+      "hold_days": 6,
+      "exit_reason": "SELL_SIGNAL",
+      "days_held": 3
+    },
+    {
+      "ticker": "GOOGL",
+      "entry_price": 376.3699951171875,
+      "close_price": 361.8399963378906,
+      "entry_date": "2026-06-01",
+      "close_date": "2026-06-02",
+      "expected_return_pct": 5.5,
+      "actual_return_pct": -3.86,
+      "hold_days": 8,
+      "exit_reason": "SELL_SIGNAL",
+      "days_held": 5
+    },
+    {
+      "ticker": "META",
+      "entry_price": 600.469970703125,
+      "close_price": 597.6400146484375,
+      "entry_date": "2026-06-01",
+      "close_date": "2026-06-02",
+      "expected_return_pct": 4.0,
+      "actual_return_pct": -0.47,
+      "hold_days": 6,
+      "exit_reason": "SELL_SIGNAL",
+      "days_held": 3
+    },
     {
       "ticker": "ABNB",
       "entry_price": 137.8699951171875,
@@ -170,15 +196,25 @@
     }
   ],
   "performance_summary": {
-    "total_trades": 7,
+    "total_trades": 11,
     "win_count": 0,
-    "loss_count": 7,
+    "loss_count": 11,
     "win_rate_pct": 0.0,
-    "avg_return_pct": 0.0,
-    "avg_hold_days": 0.7,
+    "avg_return_pct": -0.79,
+    "avg_hold_days": 1.9,
     "best_trade_pct": 0.0,
-    "worst_trade_pct": 0.0,
+    "worst_trade_pct": -3.86,
     "by_ticker": {
+      "GOOGL": {
+        "count": 2,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": -3.86
+      },
+      "META": {
+        "count": 2,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": -0.47
+      },
       "ABNB": {
         "count": 1,
         "win_rate_pct": 0.0,
