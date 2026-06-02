@@ -60,7 +60,7 @@ function OpenPositionsTable({ positions }: { positions: OpenPosition[] }) {
   ]
 
   return (
-    <table className="w-full text-xs font-mono">
+    <table className="w-full text-2xs sm:text-xs font-mono min-w-[500px]">
       <thead>
         <tr className="text-text-dim text-2xs uppercase tracking-wider border-b border-border">
           {cols.map((c) => (
@@ -142,7 +142,7 @@ function ClosedTradesTable({ trades }: { trades: ClosedTrade[] }) {
   ]
 
   return (
-    <table className="w-full text-xs font-mono">
+    <table className="w-full text-2xs sm:text-xs font-mono min-w-[450px]">
       <thead>
         <tr className="text-text-dim text-2xs uppercase tracking-wider border-b border-border">
           {cols.map((c) => (

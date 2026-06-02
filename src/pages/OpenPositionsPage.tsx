@@ -40,12 +40,12 @@ export default function OpenPositionsPage() {
   const avgPnL = data.open_positions.length > 0 ? openPnL / data.open_positions.length : 0
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5">
       {/* Page header */}
       <div className="bloomberg-label">OPEN POSITIONS</div>
 
       {/* KPI row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border">
         <MetricCard
           label="Positions"
           value={data.open_positions.length.toString()}
@@ -72,8 +72,8 @@ export default function OpenPositionsPage() {
         />
       </div>
 
-      {/* Sort controls */}
-      <div className="flex items-center gap-2">
+      {/* Sort controls — wraps on mobile */}
+      <div className="flex flex-wrap items-center gap-2">
         <span className="text-2xs text-text-dim font-mono uppercase">SORT:</span>
         {([
           { key: 'pnl', label: 'P&L' },
@@ -99,12 +99,12 @@ export default function OpenPositionsPage() {
         ))}
       </div>
 
-      {/* Table */}
+      {/* Table — horizontal scroll on mobile */}
       <div className="border border-border bg-bg-card">
         <div className="px-4 py-2 border-b border-border flex items-center justify-between">
           <span className="text-2xs text-text-dim font-mono">{sorted.length} POSITIONS</span>
         </div>
-        <div className="p-1">
+        <div className="p-1 overflow-x-auto">
           <PositionsTable openPositions={sorted} />
         </div>
       </div>

@@ -58,16 +58,16 @@ export default function ClosedTradesPage() {
   const pageData = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5">
       {/* Page header */}
       <div className="bloomberg-label">CLOSED TRADES / HISTORY</div>
 
-      {/* Filters */}
-      <div className="flex flex-wrap gap-2 items-center">
+      {/* Filters — stack on mobile */}
+      <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
         <select
           value={exitFilter}
           onChange={(e) => { setExitFilter(e.target.value); setPage(0) }}
-          className="bg-bg-card border border-border text-text font-mono text-xs px-3 py-1.5 focus:border-green/40 focus:outline-none"
+          className="bg-bg-card border border-border text-text font-mono text-2xs sm:text-xs px-3 py-1.5 focus:border-green/40 focus:outline-none"
         >
           <option value="">ALL EXITS</option>
           {EXIT_REASONS.map((r) => (
@@ -79,13 +79,13 @@ export default function ClosedTradesPage() {
           placeholder="TICKER FILTER..."
           value={tickerFilter}
           onChange={(e) => { setTickerFilter(e.target.value); setPage(0) }}
-          className="bg-bg-card border border-border text-text font-mono text-xs px-3 py-1.5 placeholder-text-dim focus:border-green/40 focus:outline-none w-40"
+          className="bg-bg-card border border-border text-text font-mono text-2xs sm:text-xs px-3 py-1.5 placeholder-text-dim focus:border-green/40 focus:outline-none w-full sm:w-40"
         />
-        <span className="text-xs text-text-dim font-mono ml-auto">{filtered.length} TRADES</span>
+        <span className="text-2xs sm:text-xs text-text-dim font-mono sm:ml-auto">{filtered.length} TRADES</span>
       </div>
 
       {/* Sort controls */}
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <span className="text-2xs text-text-dim font-mono uppercase">SORT:</span>
         {([
           { key: 'close_date' as SortKey, label: 'CLOSE DATE' },
@@ -112,18 +112,17 @@ export default function ClosedTradesPage() {
         ))}
       </div>
 
-      {/* Table */}
-      <div className="border border-border bg-bg-card">
-        <table className="w-full text-xs font-mono">
+      {/* Table — horizontal scroll on mobile */}
+      <div className="border border-border bg-bg-card overflow-x-auto">
+        <table className="w-full text-2xs sm:text-xs font-mono min-w-[600px]">
           <thead>
             <tr className="border-b border-border text-text-dim text-2xs uppercase tracking-wider">
-              <th className="text-left py-2 px-4 font-medium">TICKER</th>
-              <th className="text-left py-2 px-4 font-medium">ENTRY</th>
-              <th className="text-left py-2 px-4 font-medium">CLOSE</th>
-              <th className="text-right py-2 px-4 font-medium">RETURN</th>
-              <th className="text-left py-2 px-4 font-medium">EXIT REASON</th>
-              <th className="text-left py-2 px-4 font-medium">SIGNAL</th>
-              <th className="text-right py-2 px-4 font-medium">HELD</th>
+              <th className="text-left py-2 px-3 sm:px-4 font-medium">TICKER</th>
+              <th className="text-left py-2 px-3 sm:px-4 font-medium">ENTRY</th>
+              <th className="text-left py-2 px-3 sm:px-4 font-medium">CLOSE</th>
+              <th className="text-right py-2 px-3 sm:px-4 font-medium">RETURN</th>
+              <th className="text-left py-2 px-3 sm:px-4 font-medium">EXIT REASON</th>
+              <th className="text-right py-2 px-3 sm:px-4 font-medium">HELD</th>
             </tr>
           </thead>
           <tbody>
@@ -132,15 +131,14 @@ export default function ClosedTradesPage() {
                 key={`${t.ticker}-${t.entry_date}-${t.close_date}`}
                 className="border-t border-border/50 hover:bg-bg-hover trade-row"
               >
-                <td className="py-2.5 px-4 font-bold text-text-bright">{t.ticker}</td>
-                <td className="py-2.5 px-4 text-text-dim">{formatDate(t.entry_date)}</td>
-                <td className="py-2.5 px-4 text-text-dim">{formatDate(t.close_date)}</td>
-                <td className={`py-2.5 px-4 text-right font-medium ${t.actual_return_pct >= 0 ? 'text-green' : 'text-red'}`}>
+                <td className="py-2.5 px-3 sm:px-4 font-bold text-text-bright">{t.ticker}</td>
+                <td className="py-2.5 px-3 sm:px-4 text-text-dim">{formatDate(t.entry_date)}</td>
+                <td className="py-2.5 px-3 sm:px-4 text-text-dim">{formatDate(t.close_date)}</td>
+                <td className={`py-2.5 px-3 sm:px-4 text-right font-medium ${t.actual_return_pct >= 0 ? 'text-green' : 'text-red'}`}>
                   {formatPct(t.actual_return_pct)}
                 </td>
-                <td className="py-2.5 px-4"><StatusPill value={t.exit_reason} /></td>
-                <td className="py-2.5 px-4 text-text-dim">{t.signal_reason}</td>
-                <td className="py-2.5 px-4 text-right text-text-dim">{formatDays(t.days_held)}</td>
+                <td className="py-2.5 px-3 sm:px-4"><StatusPill value={t.exit_reason} /></td>
+                <td className="py-2.5 px-3 sm:px-4 text-right text-text-dim">{formatDays(t.days_held)}</td>
               </tr>
             ))}
           </tbody>

@@ -24,7 +24,7 @@ export default function DashboardPage() {
   const { performance_summary, open_positions, closed_trades } = data
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5">
       {/* Header row */}
       <div className="flex items-center justify-between">
         <div>
@@ -40,8 +40,8 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* KPI tiles */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-border">
+      {/* KPI tiles — 2 cols mobile, 3 tablet, 6 desktop */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-border">
         <MetricCard
           label="Total Trades"
           value={performance_summary.total_trades.toString()}
@@ -88,7 +88,7 @@ export default function DashboardPage() {
             <span className="bloomberg-label">OPEN POSITIONS</span>
             <span className="text-xs text-text-dim font-mono">{open_positions.length}</span>
           </div>
-          <div className="p-1">
+          <div className="p-1 overflow-x-auto">
             <PositionsTable openPositions={open_positions.slice(0, 5)} />
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function DashboardPage() {
             <span className="bloomberg-label">RECENT CLOSES</span>
             <span className="text-xs text-text-dim font-mono">{closed_trades.length} TOTAL</span>
           </div>
-          <div className="p-1">
+          <div className="p-1 overflow-x-auto">
             <PositionsTable closedTrades={closed_trades.slice(0, 5)} />
           </div>
         </div>
@@ -115,8 +115,8 @@ export default function DashboardPage() {
           </div>
           <div className="p-3 space-y-2">
             {data.signals.map((sig) => (
-              <div key={sig.ticker} className="flex items-center justify-between px-3 py-2 bg-bg-elevated border border-border">
-                <div className="flex items-center gap-4">
+              <div key={sig.ticker} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-3 py-2 bg-bg-elevated border border-border sm:gap-4">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                   <span className="text-md font-mono font-bold text-green">{sig.ticker}</span>
                   <span className="text-xs text-text-dim font-mono">@ ${sig.price.toFixed(2)}</span>
                   <span className="text-xs text-text-dim font-mono">TARGET {sig.target_pct.toFixed(1)}%</span>
