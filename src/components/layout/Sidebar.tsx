@@ -38,7 +38,6 @@ export default function Sidebar() {
       {/* Status footer */}
       <div className="px-4 py-3 border-t border-border">
         <div className="text-2xs text-text-dim font-mono">STATUS: <span className="text-green">LIVE</span></div>
-        <div className="text-2xs text-text-dim font-mono mt-0.5">DATA: github</div>
       </div>
     </aside>
   )

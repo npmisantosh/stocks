@@ -57,10 +57,6 @@ function OpenPositionsTable({ positions }: { positions: OpenPosition[] }) {
       key: 'state', label: 'STATE', align: 'left',
       render: (p) => <StatusPill value={p.state} />,
     },
-    {
-      key: 'signal', label: 'SIGNAL', align: 'left',
-      render: (p) => <span className="font-mono text-text-dim text-2xs">{p.signal_reason}</span>,
-    },
   ]
 
   return (
@@ -138,10 +134,6 @@ function ClosedTradesTable({ trades }: { trades: ClosedTrade[] }) {
     {
       key: 'exit', label: 'EXIT', align: 'left',
       render: (t) => <StatusPill value={t.exit_reason} />,
-    },
-    {
-      key: 'signal', label: 'SIGNAL', align: 'left',
-      render: (t) => <span className="font-mono text-text-dim text-2xs">{t.signal_reason}</span>,
     },
     {
       key: 'held', label: 'HELD', align: 'right',

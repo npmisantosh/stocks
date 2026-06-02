@@ -64,13 +64,6 @@ export interface OpenPosition {
   unrealized_pct?: number
 }
 
-// PerformanceSummary: aggregated stats
-export interface ComboStats {
-  count: number
-  win_rate_pct: number
-  avg_return_pct: number
-}
-
 export interface TickerStats {
   count: number
   win_rate_pct: number
@@ -86,7 +79,6 @@ export interface PerformanceSummary {
   avg_hold_days: number
   best_trade_pct: number
   worst_trade_pct: number
-  by_combo: Record<string, ComboStats>
   by_ticker: Record<string, TickerStats>
 }
 

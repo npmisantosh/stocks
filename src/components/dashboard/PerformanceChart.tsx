@@ -15,11 +15,9 @@ const TOOLTIP_STYLE = {
   color: '#e0e0e0',
 }
 
-function WinRateChart({ summary, title }: { summary: PerformanceSummary; title: string }) {
-  const data = Object.entries(title === 'COMBO'
-    ? summary.by_combo
-    : summary.by_ticker
-  ).map(([name, stats]) => ({
+// Win rate by ticker only — no combo reveals
+function WinRateByTicker({ summary }: { summary: PerformanceSummary }) {
+  const data = Object.entries(summary.by_ticker).map(([name, stats]) => ({
     name,
     wr: parseFloat(stats.win_rate_pct.toFixed(1)),
     count: stats.count,
@@ -27,7 +25,7 @@ function WinRateChart({ summary, title }: { summary: PerformanceSummary; title: 
 
   if (data.length === 0) return (
     <div className="border border-border bg-bg-card p-4">
-      <div className="bloomberg-label mb-3">{title}</div>
+      <div className="bloomberg-label mb-3">WIN RATE BY TICKER</div>
       <div className="text-xs text-text-dim font-mono py-8 text-center">NO DATA</div>
     </div>
   )
@@ -35,7 +33,7 @@ function WinRateChart({ summary, title }: { summary: PerformanceSummary; title: 
   return (
     <div className="border border-border bg-bg-card">
       <div className="px-4 py-2 border-b border-border">
-        <span className="bloomberg-label">WIN RATE BY {title}</span>
+        <span className="bloomberg-label">WIN RATE BY TICKER</span>
       </div>
       <div className="p-3">
         <ResponsiveContainer width="100%" height={180}>
@@ -49,7 +47,7 @@ function WinRateChart({ summary, title }: { summary: PerformanceSummary; title: 
             <YAxis
               type="category" dataKey="name"
               tick={{ fill: AXIS_COLOR, fontSize: 9, fontFamily: 'JetBrains Mono' }}
-              width={70} tickLine={false} axisLine={false}
+              width={60} tickLine={false} axisLine={false}
             />
             <Tooltip
               formatter={(v: number) => [`${v.toFixed(1)}%`, 'WIN RATE']}
@@ -74,7 +72,7 @@ function WinRateChart({ summary, title }: { summary: PerformanceSummary; title: 
 
 export function ReturnDistribution({ closedTrades }: { closedTrades: { actual_return_pct: number }[] }) {
   const buckets = [
-    { label: '<-5%',   min: -Infinity, max: -5 },
+    { label: '<-5%',    min: -Infinity, max: -5 },
     { label: '-5 to -2%', min: -5, max: -2 },
     { label: '-2 to 0%',  min: -2, max: 0 },
     { label: '0 to +2%',  min: 0, max: 2 },
@@ -133,10 +131,5 @@ export function ReturnDistribution({ closedTrades }: { closedTrades: { actual_re
 }
 
 export default function PerformanceChart({ summary }: { summary: PerformanceSummary }) {
-  return (
-    <>
-      <WinRateChart summary={summary} title="COMBO" />
-      <WinRateChart summary={summary} title="TICKER" />
-    </>
-  )
+  return <WinRateByTicker summary={summary} />
 }

@@ -123,7 +123,6 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="text-xs font-mono text-green">+{sig.expected_return_pct.toFixed(2)}%</span>
-                  <span className="text-2xs font-mono text-text-dim">{sig.top_combo}</span>
                   <span className="text-xs font-mono text-green">SCORE {sig.score.toFixed(1)}</span>
                 </div>
               </div>

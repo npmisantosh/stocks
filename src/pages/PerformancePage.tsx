@@ -23,11 +23,6 @@ export default function PerformancePage() {
 
   const { performance_summary, closed_trades } = data
 
-  // Best/worst combo
-  const comboEntries = Object.entries(performance_summary.by_combo)
-  const bestCombo = comboEntries.sort((a, b) => b[1].win_rate_pct - a[1].win_rate_pct)[0]
-  const worstCombo = comboEntries.sort((a, b) => a[1].win_rate_pct - b[1].win_rate_pct)[0]
-
   // Best/worst trade
   const sortedTrades = [...closed_trades].sort((a, b) => b.actual_return_pct - a.actual_return_pct)
   const bestTrade = sortedTrades[0]
@@ -41,20 +36,6 @@ export default function PerformancePage() {
       {/* KPI row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border">
         <MetricCard
-          label="Best Combo"
-          value={bestCombo ? bestCombo[0] : '—'}
-          sub={bestCombo ? `${formatPct(bestCombo[1].win_rate_pct, 1)} WIN RATE` : ''}
-          positive
-          className="bg-bg-card"
-        />
-        <MetricCard
-          label="Worst Combo"
-          value={worstCombo ? worstCombo[0] : '—'}
-          sub={worstCombo ? `${formatPct(worstCombo[1].win_rate_pct, 1)} WIN RATE` : ''}
-          negative
-          className="bg-bg-card"
-        />
-        <MetricCard
           label="Largest Winner"
           value={bestTrade?.ticker ?? '—'}
           sub={bestTrade ? formatPct(bestTrade.actual_return_pct, 2) : ''}
@@ -66,6 +47,20 @@ export default function PerformancePage() {
           value={worstTrade?.ticker ?? '—'}
           sub={worstTrade ? formatPct(worstTrade.actual_return_pct, 2) : ''}
           negative
+          className="bg-bg-card"
+        />
+        <MetricCard
+          label="Win Rate"
+          value={formatPct(performance_summary.win_rate_pct, 1)}
+          positive={performance_summary.win_rate_pct >= 50}
+          negative={performance_summary.win_rate_pct < 50}
+          className="bg-bg-card"
+        />
+        <MetricCard
+          label="Avg Return"
+          value={formatPct(performance_summary.avg_return_pct, 2)}
+          positive={performance_summary.avg_return_pct >= 0}
+          negative={performance_summary.avg_return_pct < 0}
           className="bg-bg-card"
         />
       </div>
