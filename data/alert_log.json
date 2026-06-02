@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "exported_at": "2026-06-02T08:25:34.353697",
+  "exported_at": "2026-06-02T18:18:35.543351",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [],
@@ -14,8 +14,7 @@
       "hold_days": 8,
       "days_held": 5,
       "entry_date": "2026-06-01",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "trend_1"
+      "state": "HELD_ANOTHER"
     },
     {
       "ticker": "AMZN",
@@ -26,8 +25,7 @@
       "hold_days": 6,
       "days_held": 5,
       "entry_date": "2026-06-01",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "meanrev_2"
+      "state": "HELD_ANOTHER"
     },
     {
       "ticker": "META",
@@ -38,8 +36,29 @@
       "hold_days": 6,
       "days_held": 3,
       "entry_date": "2026-06-01",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "vol_2"
+      "state": "HELD_ANOTHER"
+    },
+    {
+      "ticker": "KO",
+      "entry_price": 78.63999938964844,
+      "target_price": 82.17879936218262,
+      "stop_price": 76.28079940795898,
+      "expected_return_pct": 3.0,
+      "hold_days": 4,
+      "days_held": 0,
+      "entry_date": "2026-06-02",
+      "state": "PENDING"
+    },
+    {
+      "ticker": "LLY",
+      "entry_price": 1082.199951171875,
+      "target_price": 1130.8989489746093,
+      "stop_price": 1049.7339526367186,
+      "expected_return_pct": 3.0,
+      "hold_days": 4,
+      "days_held": 0,
+      "entry_date": "2026-06-02",
+      "state": "PENDING"
     }
   ],
   "closed_trades": [
@@ -53,7 +72,6 @@
       "actual_return_pct": 0.0,
       "hold_days": 4,
       "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "",
       "days_held": 3
     },
     {
@@ -66,7 +84,6 @@
       "actual_return_pct": 0.0,
       "hold_days": 6,
       "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "trend_1",
       "days_held": 2
     },
     {
@@ -79,7 +96,6 @@
       "actual_return_pct": 0.0,
       "hold_days": 7,
       "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "trend_1",
       "days_held": 0
     },
     {
@@ -92,7 +108,6 @@
       "actual_return_pct": 0.0,
       "hold_days": 7,
       "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "trend_1",
       "days_held": 0
     },
     {
@@ -105,7 +120,6 @@
       "actual_return_pct": 0.0,
       "hold_days": 6,
       "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "trend_1",
       "days_held": 0
     },
     {
@@ -118,7 +132,6 @@
       "actual_return_pct": 0.0,
       "hold_days": 6,
       "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "trend_2",
       "days_held": 0
     },
     {
@@ -131,7 +144,6 @@
       "actual_return_pct": 0.0,
       "hold_days": 6,
       "exit_reason": "SELL_SIGNAL",
-      "signal_reason": "trend_4",
       "days_held": 0
     }
   ],
@@ -144,28 +156,6 @@
     "avg_hold_days": 0.7,
     "best_trade_pct": 0.0,
     "worst_trade_pct": 0.0,
-    "by_combo": {
-      "unknown": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "trend_1": {
-        "count": 4,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "trend_2": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "trend_4": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      }
-    },
     "by_ticker": {
       "ABNB": {
         "count": 1,
