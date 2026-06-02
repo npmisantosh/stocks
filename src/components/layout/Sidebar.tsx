@@ -7,6 +7,18 @@ const navItems = [
   { to: '/performance',label: 'PERFORMANCE' },
 ]
 
+function formatExportedAt(iso: string): string {
+  const d = new Date(iso)
+  return d.toLocaleString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  })
+}
+
 interface SidebarProps {
   exportedAt: string
 }
@@ -42,7 +54,7 @@ export default function Sidebar({ exportedAt }: SidebarProps) {
       {/* Exported timestamp */}
       <div className="px-4 py-3 border-t border-border">
         <div className="text-2xs text-text-dim font-mono">EXPORTED</div>
-        <div className="text-2xs text-text font-mono mt-0.5">{exportedAt}</div>
+        <div className="text-2xs text-text font-mono mt-0.5">{formatExportedAt(exportedAt)}</div>
       </div>
     </aside>
   )
