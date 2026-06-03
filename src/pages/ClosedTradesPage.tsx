@@ -1,10 +1,13 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Spinner from '../components/ui/Spinner'
 import { useAlertData } from '../hooks/useAlertData'
 import { useAutoRefresh } from '../hooks/useAutoRefresh'
 import { formatPct, formatDate, formatDays } from '../lib/formatters'
 import StatusPill from '../components/ui/StatusPill'
 import { ExitReason } from '../types/alert'
+import { fetchOHLCData } from '../lib/api'
+import { OHLCData } from '../types/ohlc'
+import TradeDetailPanel from '../components/trade/TradeDetailPanel'
 
 const PAGE_SIZE = 20
 
@@ -26,6 +29,13 @@ export default function ClosedTradesPage() {
   const [tickerFilter, setTickerFilter] = useState<string>('')
   const [sortKey, setSortKey] = useState<SortKey>('close_date')
   const [sortAsc, setSortAsc] = useState(false)
+
+  const [ohlc, setOhlc] = useState<OHLCData | null>(null)
+  const [selectedTicker, setSelectedTicker] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetchOHLCData().then(setOhlc).catch(() => {})
+  }, [])
 
   const filtered = useMemo(() => {
     if (!data) return []
@@ -127,7 +137,7 @@ export default function ClosedTradesPage() {
             </tr>
           </thead>
           <tbody>
-            {pageData.map((t) => (
+            {pageData.flatMap((t) => [
               <tr
                 key={`${t.ticker}-${t.entry_date}-${t.close_date}`}
                 className="border-t border-border/50 hover:bg-bg-hover trade-row"
@@ -140,8 +150,35 @@ export default function ClosedTradesPage() {
                 </td>
                 <td className="py-2.5 px-3 sm:px-4"><StatusPill value={t.exit_reason} /></td>
                 <td className="py-2.5 px-3 sm:px-4 text-right text-text-dim">{formatDays(t.days_held)}</td>
-              </tr>
-            ))}
+              </tr>,
+              <tr key={`chart-${t.ticker}-${t.entry_date}-${t.close_date}`}>
+                <td colSpan={6} className="p-0">
+                  <div className="border-t border-border/30">
+                    <button
+                      onClick={() =>
+                        setSelectedTicker(selectedTicker === t.ticker ? null : t.ticker)
+                      }
+                      className="w-full flex items-center gap-2 px-4 py-1.5 text-2xs font-mono text-text-dim hover:bg-bg-hover transition-colors"
+                    >
+                      <span className={`transition-transform ${selectedTicker === t.ticker ? 'rotate-90' : ''}`}>
+                        ▶
+                      </span>
+                      <span>SHOW CHART — {t.ticker}</span>
+                    </button>
+                    {selectedTicker === t.ticker && ohlc?.tickers[t.ticker] && (
+                      <TradeDetailPanel
+                        ticker={t.ticker}
+                        entryPrice={t.entry_price}
+                        closePrice={t.close_price}
+                        entryDate={t.entry_date}
+                        exitReason={t.exit_reason}
+                        bars={ohlc.tickers[t.ticker]}
+                      />
+                    )}
+                  </div>
+                </td>
+              </tr>,
+            ])}
           </tbody>
         </table>
       </div>
