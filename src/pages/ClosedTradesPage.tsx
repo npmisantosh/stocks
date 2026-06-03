@@ -27,19 +27,8 @@ export default function ClosedTradesPage() {
   const [sortKey, setSortKey] = useState<SortKey>('close_date')
   const [sortAsc, setSortAsc] = useState(false)
 
-  if (loading) return (
-    <div className="flex items-center justify-center h-64">
-      <Spinner size="lg" />
-    </div>
-  )
-  if (error) return (
-    <div className="border border-red/30 bg-red/5 p-4">
-      <span className="text-red text-sm font-mono">ERR: {error}</span>
-    </div>
-  )
-  if (!data) return null
-
   const filtered = useMemo(() => {
+    if (!data) return []
     let list = [...data.closed_trades]
     if (exitFilter) list = list.filter((t) => t.exit_reason === exitFilter)
     if (tickerFilter) list = list.filter((t) => t.ticker.toLowerCase().includes(tickerFilter.toLowerCase()))
@@ -52,10 +41,22 @@ export default function ClosedTradesPage() {
       else if (sortKey === 'days_held') cmp = a.days_held - b.days_held
       return sortAsc ? cmp : -cmp
     })
-  }, [data.closed_trades, exitFilter, tickerFilter, sortKey, sortAsc])
+  }, [data, exitFilter, tickerFilter, sortKey, sortAsc])
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
   const pageData = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
+
+  if (loading) return (
+    <div className="flex items-center justify-center h-64">
+      <Spinner size="lg" />
+    </div>
+  )
+  if (error) return (
+    <div className="border border-red/30 bg-red/5 p-4">
+      <span className="text-red text-sm font-mono">ERR: {error}</span>
+    </div>
+  )
+  if (!data) return null
 
   return (
     <div className="space-y-4 sm:space-y-5">
