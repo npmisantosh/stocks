@@ -165,11 +165,25 @@ export default function TradeDetailPanel({
               strokeDasharray="4 4"
               strokeWidth={1}
               label={{
-                value: 'ENTRY',
+                value: `ENTRY $${entryPrice.toFixed(2)}`,
                 fill: '#ffd700',
                 fontSize: 9,
                 fontFamily: 'JetBrains Mono',
                 position: 'insideTopRight',
+              }}
+            />
+
+            <ReferenceLine
+              x={entryDate}
+              stroke="#ffd700"
+              strokeDasharray="4 4"
+              strokeWidth={1}
+              label={{
+                value: formatDate(entryDate),
+                fill: '#ffd700',
+                fontSize: 9,
+                fontFamily: 'JetBrains Mono',
+                position: 'insideTopLeft',
               }}
             />
 
