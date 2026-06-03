@@ -1,5 +1,6 @@
 {
   "name": "stock-alert-web",
+  "homepage": "https://npmisantosh.github.io/stocks",
   "private": true,
   "version": "1.0.0",
   "type": "module",
