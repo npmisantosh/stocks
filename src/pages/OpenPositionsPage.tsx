@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Spinner from '../components/ui/Spinner'
 import PositionsTable from '../components/dashboard/PositionsTable'
 import { useAlertData } from '../hooks/useAlertData'
 import { useAutoRefresh } from '../hooks/useAutoRefresh'
 import { formatPct } from '../lib/formatters'
 import MetricCard from '../components/ui/MetricCard'
+import { fetchOHLCData } from '../lib/api'
+import { OHLCData } from '../types/ohlc'
+import TradeDetailPanel from '../components/trade/TradeDetailPanel'
 
 type SortKey = 'ticker' | 'entry_price' | 'pnl' | 'days_held' | 'hold_days'
 
@@ -13,6 +16,12 @@ export default function OpenPositionsPage() {
   useAutoRefresh({ onRefresh: refetch })
   const [sortKey, setSortKey] = useState<SortKey>('pnl')
   const [sortAsc, setSortAsc] = useState(false)
+  const [ohlc, setOhlc] = useState<OHLCData | null>(null)
+  const [selectedTicker, setSelectedTicker] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetchOHLCData().then(setOhlc).catch(() => {})
+  }, [])
 
   if (loading) return (
     <div className="flex items-center justify-center h-64">
@@ -104,8 +113,35 @@ export default function OpenPositionsPage() {
         <div className="px-4 py-2 border-b border-border flex items-center justify-between">
           <span className="text-2xs text-text-dim font-mono">{sorted.length} POSITIONS</span>
         </div>
-        <div className="p-1 overflow-x-auto">
-          <PositionsTable openPositions={sorted} />
+        <div>
+          <div className="p-1 overflow-x-auto">
+            <PositionsTable openPositions={sorted} />
+          </div>
+          {sorted.map((pos) => (
+            <div key={pos.ticker}>
+              <button
+                onClick={() =>
+                  setSelectedTicker(selectedTicker === pos.ticker ? null : pos.ticker)
+                }
+                className="w-full flex items-center gap-2 px-4 py-1.5 text-2xs font-mono text-text-dim hover:bg-bg-hover border-t border-border/40 transition-colors"
+              >
+                <span className={`transition-transform ${selectedTicker === pos.ticker ? 'rotate-90' : ''}`}>
+                  ▶
+                </span>
+                <span>SHOW CHART — {pos.ticker}</span>
+              </button>
+              {selectedTicker === pos.ticker && ohlc?.tickers[pos.ticker] && (
+                <TradeDetailPanel
+                  ticker={pos.ticker}
+                  entryPrice={pos.entry_price}
+                  targetPrice={pos.target_price}
+                  stopPrice={pos.stop_price}
+                  entryDate={pos.entry_date}
+                  bars={ohlc.tickers[pos.ticker]}
+                />
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>
