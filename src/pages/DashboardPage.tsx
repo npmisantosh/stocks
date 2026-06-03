@@ -1,13 +1,24 @@
+import { useState, useEffect } from 'react'
 import MetricCard from '../components/ui/MetricCard'
 import Spinner from '../components/ui/Spinner'
-import PositionsTable from '../components/dashboard/PositionsTable'
+import StatusPill from '../components/ui/StatusPill'
 import { useAlertData } from '../hooks/useAlertData'
 import { useAutoRefresh } from '../hooks/useAutoRefresh'
-import { formatPct } from '../lib/formatters'
+import { fetchOHLCData } from '../lib/api'
+import { OHLCData } from '../types/ohlc'
+import TradeDetailPanel from '../components/trade/TradeDetailPanel'
+import { formatPct, formatCurrency, formatDays, formatDate } from '../lib/formatters'
 
 export default function DashboardPage() {
   const { data, loading, error, refetch } = useAlertData()
   useAutoRefresh({ onRefresh: refetch })
+
+  const [ohlc, setOhlc] = useState<OHLCData | null>(null)
+  const [selectedTicker, setSelectedTicker] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetchOHLCData().then(setOhlc).catch(() => {})
+  }, [])
 
   if (loading) return (
     <div className="flex items-center justify-center h-64">
@@ -83,27 +94,121 @@ export default function DashboardPage() {
 
       {/* Open positions */}
       {open_positions.length > 0 && (
-        <div className="border border-border bg-bg-card">
+        <div className="border border-border bg-bg-card overflow-x-auto">
           <div className="px-4 py-2 border-b border-border flex items-center justify-between">
             <span className="bloomberg-label">OPEN POSITIONS</span>
             <span className="text-xs text-text-dim font-mono">{open_positions.length}</span>
           </div>
-          <div className="p-1 overflow-x-auto">
-            <PositionsTable openPositions={open_positions.slice(0, 5)} />
-          </div>
+          <table className="w-full text-2xs sm:text-xs font-mono min-w-[500px]">
+            <thead>
+              <tr className="text-text-dim text-2xs uppercase tracking-wider border-b border-border">
+                <th className="text-left py-2 px-3 font-medium">TICKER</th>
+                <th className="text-right py-2 px-3 font-medium">ENTRY</th>
+                <th className="text-right py-2 px-3 font-medium">TARGET</th>
+                <th className="text-right py-2 px-3 font-medium">STOP</th>
+                <th className="text-right py-2 px-3 font-medium">P&L</th>
+                <th className="text-right py-2 px-3 font-medium">HELD</th>
+                <th className="text-left py-2 px-3 font-medium">STATE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {open_positions.slice(0, 5).flatMap((p) => [
+                <tr
+                  key={p.ticker}
+                  onClick={() =>
+                    setSelectedTicker(selectedTicker === p.ticker ? null : p.ticker)
+                  }
+                  className="border-t border-border/40 hover:bg-bg-hover trade-row cursor-pointer"
+                >
+                  <td className="py-2.5 px-3 font-bold text-text-bright">{p.ticker}</td>
+                  <td className="py-2.5 px-3 text-right font-mono text-text-dim">{formatCurrency(p.entry_price)}</td>
+                  <td className="py-2.5 px-3 text-right font-mono text-text">{formatCurrency(p.target_price)}</td>
+                  <td className="py-2.5 px-3 text-right font-mono text-red">{formatCurrency(p.stop_price)}</td>
+                  <td className={`py-2.5 px-3 text-right font-mono font-medium ${(p.unrealized_pct ?? 0) > 0 ? 'text-green' : (p.unrealized_pct ?? 0) < 0 ? 'text-red' : 'text-text-dim'}`}>
+                    {formatPct(p.unrealized_pct ?? 0)}
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono text-text-dim">{p.days_held}d</td>
+                  <td className="py-2.5 px-3"><StatusPill value={p.state} /></td>
+                </tr>,
+                selectedTicker === p.ticker && ohlc?.tickers[p.ticker] ? (
+                  <tr key={`chart-${p.ticker}`}>
+                    <td colSpan={7} className="p-0">
+                      <TradeDetailPanel
+                        ticker={p.ticker}
+                        entryPrice={p.entry_price}
+                        targetPrice={p.target_price}
+                        stopPrice={p.stop_price}
+                        entryDate={p.entry_date}
+                        bars={ohlc.tickers[p.ticker]}
+                      />
+                    </td>
+                  </tr>
+                ) : [],
+              ])}
+            </tbody>
+          </table>
         </div>
       )}
 
       {/* Recent closed trades */}
       {closed_trades.length > 0 && (
-        <div className="border border-border bg-bg-card">
+        <div className="border border-border bg-bg-card overflow-x-auto">
           <div className="px-4 py-2 border-b border-border flex items-center justify-between">
             <span className="bloomberg-label">RECENT CLOSES</span>
             <span className="text-xs text-text-dim font-mono">{closed_trades.length} TOTAL</span>
           </div>
-          <div className="p-1 overflow-x-auto">
-            <PositionsTable closedTrades={closed_trades.slice(0, 5)} />
-          </div>
+          <table className="w-full text-2xs sm:text-xs font-mono min-w-[500px]">
+            <thead>
+              <tr className="text-text-dim text-2xs uppercase tracking-wider border-b border-border">
+                <th className="text-left py-2 px-3 font-medium">TICKER</th>
+                <th className="text-left py-2 px-3 font-medium">ENTRY</th>
+                <th className="text-left py-2 px-3 font-medium">CLOSE</th>
+                <th className="text-right py-2 px-3 font-medium">RETURN</th>
+                <th className="text-left py-2 px-3 font-medium">EXIT</th>
+                <th className="text-right py-2 px-3 font-medium">HELD</th>
+              </tr>
+            </thead>
+            <tbody>
+              {closed_trades.slice(0, 5).flatMap((t) => [
+                <tr
+                  key={`${t.ticker}-${t.entry_date}`}
+                  onClick={() =>
+                    setSelectedTicker(selectedTicker === t.ticker ? null : t.ticker)
+                  }
+                  className="border-t border-border/40 hover:bg-bg-hover trade-row cursor-pointer"
+                >
+                  <td className="py-2.5 px-3 font-bold text-text-bright">{t.ticker}</td>
+                  <td className="py-2.5 px-3 text-text-dim">
+                    <span className="font-mono">{formatCurrency(t.entry_price)}</span>
+                    <span className="text-text-dim/60 ml-1 text-2xs">{formatDate(t.entry_date)}</span>
+                  </td>
+                  <td className="py-2.5 px-3 text-text-dim">
+                    <span className="font-mono">{formatCurrency(t.close_price)}</span>
+                    <span className="text-text-dim/60 ml-1 text-2xs">{formatDate(t.close_date)}</span>
+                  </td>
+                  <td className={`py-2.5 px-3 text-right font-mono font-medium ${t.actual_return_pct > 0 ? 'text-green' : t.actual_return_pct < 0 ? 'text-red' : 'text-text-dim'}`}>
+                    {formatPct(t.actual_return_pct)}
+                  </td>
+                  <td className="py-2.5 px-3"><StatusPill value={t.exit_reason} /></td>
+                  <td className="py-2.5 px-3 text-right font-mono text-text-dim">{formatDays(t.days_held)}</td>
+                </tr>,
+                selectedTicker === t.ticker && ohlc?.tickers[t.ticker] ? (
+                  <tr key={`chart-${t.ticker}-${t.entry_date}`}>
+                    <td colSpan={6} className="p-0">
+                      <TradeDetailPanel
+                        ticker={t.ticker}
+                        entryPrice={t.entry_price}
+                        closePrice={t.close_price}
+                        entryDate={t.entry_date}
+                        exitReason={t.exit_reason}
+                        bars={ohlc.tickers[t.ticker]}
+                      />
+                    </td>
+                  </tr>
+                ) : [],
+              ])}
+            </tbody>
+          </table>
         </div>
       )}
 
