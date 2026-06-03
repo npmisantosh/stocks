@@ -42,9 +42,10 @@ interface CandlestickBarProps {
   height?: number
   payload?: OHLCBar
   dataMin: number
+  isEntry: boolean
 }
 
-function CandlestickBar({ x, y, width, height, payload, dataMin }: CandlestickBarProps) {
+function CandlestickBar({ x, y, width, height, payload, dataMin, isEntry }: CandlestickBarProps) {
   if (x == null || y == null || width == null || height == null || width <= 0 || height <= 0) return null
   const { o, h, l, c } = payload ?? { o: 0, h: 0, l: 0, c: 0 }
 
@@ -61,7 +62,7 @@ function CandlestickBar({ x, y, width, height, payload, dataMin }: CandlestickBa
 
   return (
     <g>
-      <line x1={cx} y1={highY} x2={cx} y2={lowY} stroke={color} strokeWidth={1} />
+      <line x1={cx} y1={highY} x2={cx} y2={lowY} stroke={color} strokeWidth={isEntry ? 2 : 1} />
       <rect
         x={cx - bw / 2}
         y={Math.min(openY, closeY)}
@@ -69,7 +70,15 @@ function CandlestickBar({ x, y, width, height, payload, dataMin }: CandlestickBa
         height={Math.max(Math.abs(closeY - openY), 1)}
         fill={color}
         fillOpacity={0.7}
+        stroke={isEntry ? '#ffd700' : 'none'}
+        strokeWidth={isEntry ? 2 : 0}
       />
+      {isEntry && (
+        <polygon
+          points={`${cx - 5},${highY - 8} ${cx + 5},${highY - 8} ${cx},${highY - 1}`}
+          fill="#ffd700"
+        />
+      )}
     </g>
   )
 }
@@ -155,7 +164,13 @@ export default function TradeDetailPanel({
             />
             <Bar
               dataKey="h"
-              shape={<CandlestickBar dataMin={dataMin} />}
+              shape={(props: any) => (
+                <CandlestickBar
+                  {...props}
+                  dataMin={dataMin}
+                  isEntry={props.payload?.d === entryDate}
+                />
+              )}
               isAnimationActive={false}
             />
 
@@ -170,20 +185,6 @@ export default function TradeDetailPanel({
                 fontSize: 9,
                 fontFamily: 'JetBrains Mono',
                 position: 'insideTopRight',
-              }}
-            />
-
-            <ReferenceLine
-              x={entryDate}
-              stroke="#ffd700"
-              strokeDasharray="4 4"
-              strokeWidth={1}
-              label={{
-                value: formatDate(entryDate),
-                fill: '#ffd700',
-                fontSize: 9,
-                fontFamily: 'JetBrains Mono',
-                position: 'insideTopLeft',
               }}
             />
 
