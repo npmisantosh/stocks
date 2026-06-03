@@ -125,12 +125,12 @@ export default function ClosedTradesPage() {
 
       {/* Table — horizontal scroll on mobile */}
       <div className="border border-border bg-bg-card overflow-x-auto">
-        <table className="w-full text-2xs sm:text-xs font-mono min-w-[600px]">
+        <table className="w-full text-2xs sm:text-xs font-mono">
           <thead>
             <tr className="border-b border-border text-text-dim text-2xs uppercase tracking-wider">
               <th className="text-left py-2 px-3 sm:px-4 font-medium">TICKER</th>
-              <th className="text-left py-2 px-3 sm:px-4 font-medium">ENTRY</th>
-              <th className="text-left py-2 px-3 sm:px-4 font-medium">CLOSE</th>
+              <th className="hidden sm:table-cell text-left py-2 px-3 sm:px-4 font-medium">ENTRY</th>
+              <th className="hidden sm:table-cell text-left py-2 px-3 sm:px-4 font-medium">CLOSE</th>
               <th className="text-right py-2 px-3 sm:px-4 font-medium">RETURN</th>
               <th className="text-left py-2 px-3 sm:px-4 font-medium">EXIT REASON</th>
               <th className="text-right py-2 px-3 sm:px-4 font-medium">HELD</th>
@@ -147,8 +147,8 @@ export default function ClosedTradesPage() {
                 className="border-t border-border/50 hover:bg-bg-hover trade-row cursor-pointer"
               >
                 <td className="py-2.5 px-3 sm:px-4 font-bold text-text-bright">{t.ticker}</td>
-                <td className="py-2.5 px-3 sm:px-4 text-text-dim">{formatDate(t.entry_date)}</td>
-                <td className="py-2.5 px-3 sm:px-4 text-text-dim">{formatDate(t.close_date)}</td>
+                <td className="hidden sm:table-cell py-2.5 px-3 sm:px-4 text-text-dim">{formatDate(t.entry_date)}</td>
+                <td className="hidden sm:table-cell py-2.5 px-3 sm:px-4 text-text-dim">{formatDate(t.close_date)}</td>
                 <td className={`py-2.5 px-3 sm:px-4 text-right font-medium ${t.actual_return_pct >= 0 ? 'text-green' : 'text-red'}`}>
                   {formatPct(t.actual_return_pct)}
                 </td>

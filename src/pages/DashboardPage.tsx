@@ -100,13 +100,13 @@ export default function DashboardPage() {
             <span className="bloomberg-label">OPEN POSITIONS</span>
             <span className="text-xs text-text-dim font-mono">{open_positions.length}</span>
           </div>
-          <table className="w-full text-2xs sm:text-xs font-mono min-w-[500px]">
+          <table className="w-full text-2xs sm:text-xs font-mono">
             <thead>
               <tr className="text-text-dim text-2xs uppercase tracking-wider border-b border-border">
                 <th className="text-left py-2 px-3 font-medium">TICKER</th>
-                <th className="text-right py-2 px-3 font-medium">ENTRY</th>
-                <th className="text-right py-2 px-3 font-medium">TARGET</th>
-                <th className="text-right py-2 px-3 font-medium">STOP</th>
+                <th className="hidden sm:table-cell text-right py-2 px-3 font-medium">ENTRY</th>
+                <th className="hidden sm:table-cell text-right py-2 px-3 font-medium">TARGET</th>
+                <th className="hidden sm:table-cell text-right py-2 px-3 font-medium">STOP</th>
                 <th className="text-right py-2 px-3 font-medium">P&L</th>
                 <th className="text-right py-2 px-3 font-medium">HELD</th>
                 <th className="text-left py-2 px-3 font-medium">STATE</th>
@@ -123,9 +123,9 @@ export default function DashboardPage() {
                   className="border-t border-border/40 hover:bg-bg-hover trade-row cursor-pointer"
                 >
                   <td className="py-2.5 px-3 font-bold text-text-bright">{p.ticker}</td>
-                  <td className="py-2.5 px-3 text-right font-mono text-text-dim">{formatCurrency(p.entry_price)}</td>
-                  <td className="py-2.5 px-3 text-right font-mono text-text">{formatCurrency(p.target_price)}</td>
-                  <td className="py-2.5 px-3 text-right font-mono text-red">{formatCurrency(p.stop_price)}</td>
+                  <td className="hidden sm:table-cell py-2.5 px-3 text-right font-mono text-text-dim">{formatCurrency(p.entry_price)}</td>
+                  <td className="hidden sm:table-cell py-2.5 px-3 text-right font-mono text-text">{formatCurrency(p.target_price)}</td>
+                  <td className="hidden sm:table-cell py-2.5 px-3 text-right font-mono text-red">{formatCurrency(p.stop_price)}</td>
                   <td className={`py-2.5 px-3 text-right font-mono font-medium ${(p.unrealized_pct ?? 0) > 0 ? 'text-green' : (p.unrealized_pct ?? 0) < 0 ? 'text-red' : 'text-text-dim'}`}>
                     {formatPct(p.unrealized_pct ?? 0)}
                   </td>
@@ -159,12 +159,12 @@ export default function DashboardPage() {
             <span className="bloomberg-label">RECENT CLOSES</span>
             <span className="text-xs text-text-dim font-mono">{closed_trades.length} TOTAL</span>
           </div>
-          <table className="w-full text-2xs sm:text-xs font-mono min-w-[500px]">
+          <table className="w-full text-2xs sm:text-xs font-mono">
             <thead>
               <tr className="text-text-dim text-2xs uppercase tracking-wider border-b border-border">
                 <th className="text-left py-2 px-3 font-medium">TICKER</th>
-                <th className="text-left py-2 px-3 font-medium">ENTRY</th>
-                <th className="text-left py-2 px-3 font-medium">CLOSE</th>
+                <th className="hidden sm:table-cell text-left py-2 px-3 font-medium">ENTRY</th>
+                <th className="hidden sm:table-cell text-left py-2 px-3 font-medium">CLOSE</th>
                 <th className="text-right py-2 px-3 font-medium">RETURN</th>
                 <th className="text-left py-2 px-3 font-medium">EXIT</th>
                 <th className="text-right py-2 px-3 font-medium">HELD</th>
@@ -181,11 +181,11 @@ export default function DashboardPage() {
                   className="border-t border-border/40 hover:bg-bg-hover trade-row cursor-pointer"
                 >
                   <td className="py-2.5 px-3 font-bold text-text-bright">{t.ticker}</td>
-                  <td className="py-2.5 px-3 text-text-dim">
+                  <td className="hidden sm:table-cell py-2.5 px-3 text-text-dim">
                     <span className="font-mono">{formatCurrency(t.entry_price)}</span>
                     <span className="text-text-dim/60 ml-1 text-2xs">{formatDate(t.entry_date)}</span>
                   </td>
-                  <td className="py-2.5 px-3 text-text-dim">
+                  <td className="hidden sm:table-cell py-2.5 px-3 text-text-dim">
                     <span className="font-mono">{formatCurrency(t.close_price)}</span>
                     <span className="text-text-dim/60 ml-1 text-2xs">{formatDate(t.close_date)}</span>
                   </td>

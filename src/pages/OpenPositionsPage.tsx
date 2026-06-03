@@ -110,13 +110,13 @@ export default function OpenPositionsPage() {
 
       {/* Table — horizontal scroll on mobile */}
       <div className="border border-border bg-bg-card overflow-x-auto">
-        <table className="w-full text-2xs sm:text-xs font-mono min-w-[600px]">
+        <table className="w-full text-2xs sm:text-xs font-mono">
           <thead>
             <tr className="border-b border-border text-text-dim text-2xs uppercase tracking-wider">
               <th className="text-left py-2 px-3 sm:px-4 font-medium">TICKER</th>
-              <th className="text-right py-2 px-3 sm:px-4 font-medium">ENTRY</th>
-              <th className="text-right py-2 px-3 sm:px-4 font-medium">TARGET</th>
-              <th className="text-right py-2 px-3 sm:px-4 font-medium">STOP</th>
+              <th className="hidden sm:table-cell text-right py-2 px-3 sm:px-4 font-medium">ENTRY</th>
+              <th className="hidden sm:table-cell text-right py-2 px-3 sm:px-4 font-medium">TARGET</th>
+              <th className="hidden sm:table-cell text-right py-2 px-3 sm:px-4 font-medium">STOP</th>
               <th className="text-right py-2 px-3 sm:px-4 font-medium">P&L</th>
               <th className="text-right py-2 px-3 sm:px-4 font-medium">HELD / MAX</th>
               <th className="text-left py-2 px-3 sm:px-4 font-medium">STATE</th>
@@ -132,9 +132,9 @@ export default function OpenPositionsPage() {
                 className="border-t border-border/40 hover:bg-bg-hover trade-row cursor-pointer"
               >
                 <td className="py-2.5 px-3 sm:px-4 font-bold text-text-bright">{p.ticker}</td>
-                <td className="py-2.5 px-3 sm:px-4 text-right font-mono text-text-dim">{formatCurrency(p.entry_price)}</td>
-                <td className="py-2.5 px-3 sm:px-4 text-right font-mono text-text">{formatCurrency(p.target_price)}</td>
-                <td className="py-2.5 px-3 sm:px-4 text-right font-mono text-red">{formatCurrency(p.stop_price)}</td>
+                <td className="hidden sm:table-cell py-2.5 px-3 sm:px-4 text-right font-mono text-text-dim">{formatCurrency(p.entry_price)}</td>
+                <td className="hidden sm:table-cell py-2.5 px-3 sm:px-4 text-right font-mono text-text">{formatCurrency(p.target_price)}</td>
+                <td className="hidden sm:table-cell py-2.5 px-3 sm:px-4 text-right font-mono text-red">{formatCurrency(p.stop_price)}</td>
                 <td className={`py-2.5 px-3 sm:px-4 text-right font-mono font-medium ${(p.unrealized_pct ?? 0) > 0 ? 'text-green' : (p.unrealized_pct ?? 0) < 0 ? 'text-red' : 'text-text-dim'}`}>
                   {formatPct(p.unrealized_pct ?? 0)}
                 </td>
