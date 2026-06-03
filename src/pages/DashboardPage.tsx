@@ -228,23 +228,39 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* Today's signals */}
+      {/* Today's signals — full trade setup cards */}
       {data.signals && data.signals.length > 0 && (
-        <div className="border border-border bg-bg-card">
-          <div className="px-4 py-2 border-b border-border">
-            <span className="bloomberg-label">TODAY SIGNALS</span>
+        <div className="border border-green/30 bg-bg-card">
+          <div className="px-4 py-2 border-b border-green/30 bg-green/5 flex items-center justify-between">
+            <span className="bloomberg-label text-green">TODAY&apos;S SIGNALS</span>
+            <span className="text-xs text-text-dim font-mono">{data.signals.length} ACTIVE</span>
           </div>
-          <div className="p-3 space-y-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-px bg-border">
             {data.signals.map((sig) => (
-              <div key={sig.ticker} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-3 py-2 bg-bg-elevated border border-border sm:gap-4">
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                  <span className="text-md font-mono font-bold text-green">{sig.ticker}</span>
-                  <span className="text-xs text-text-dim font-mono">@ ${sig.price.toFixed(2)}</span>
-                  <span className="text-xs text-text-dim font-mono">TARGET {sig.target_pct.toFixed(1)}%</span>
+              <div
+                key={sig.ticker}
+                className="bg-bg-card p-4 hover:bg-bg-hover cursor-pointer transition-colors"
+              >
+                {/* Ticker + return row */}
+                <div className="flex items-start justify-between mb-3">
+                  <span className="text-lg font-mono font-bold text-text-bright">{sig.ticker}</span>
+                  <span className="text-lg font-mono font-bold text-green">+{sig.expected_return_pct.toFixed(1)}%</span>
                 </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-xs font-mono text-green">+{sig.expected_return_pct.toFixed(2)}%</span>
-                  <span className="text-xs font-mono text-green">SCORE {sig.score.toFixed(1)}</span>
+
+                {/* Entry / Target / Stop */}
+                <div className="grid grid-cols-3 gap-2">
+                  <div>
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Entry</div>
+                    <div className="text-sm font-mono text-text-bright">{formatCurrency(sig.price)}</div>
+                  </div>
+                  <div>
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Target</div>
+                    <div className="text-sm font-mono text-green">{formatCurrency(sig.target_price)}</div>
+                  </div>
+                  <div>
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Stop</div>
+                    <div className="text-sm font-mono text-red">{formatCurrency(sig.stop_price)}</div>
+                  </div>
                 </div>
               </div>
             ))}

@@ -1,19 +1,12 @@
-// AlertSignal: BUY alert fired today
+// Sanitized signal — only the raw trade setup is exposed publicly.
+// Internal scoring metadata (score, combos, RSI, trend, etc.) is stripped
+// before writing to the public GitHub Pages repo.
 export interface AlertSignal {
   ticker: string
   price: number
   target_price: number
   stop_price: number
   expected_return_pct: number
-  target_pct: number
-  stop_loss_pct: number
-  score: number
-  signal_count: number
-  top_combo: string
-  expected_hold_days: number
-  weekly_confirmed: boolean
-  weekly_rsi: number | null
-  weekly_trend: 'bullish' | 'bearish' | 'neutral'
   timestamp: string
 }
 
