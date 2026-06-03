@@ -35,9 +35,18 @@ function formatPrice(v: number): string {
   return `$${v.toFixed(2)}`
 }
 
-function CandlestickBar({ x, y, width, height, payload, dataMin }: any) {
-  const { o, h, l, c } = payload
-  if (width <= 0 || height <= 0) return null
+interface CandlestickBarProps {
+  x?: number
+  y?: number
+  width?: number
+  height?: number
+  payload?: OHLCBar
+  dataMin: number
+}
+
+function CandlestickBar({ x, y, width, height, payload, dataMin }: CandlestickBarProps) {
+  if (x == null || y == null || width == null || height == null || width <= 0 || height <= 0) return null
+  const { o, h, l, c } = payload ?? { o: 0, h: 0, l: 0, c: 0 }
 
   const cx = x + width / 2
   const bw = Math.max(width * 0.6, 2)
@@ -69,25 +78,36 @@ export default function TradeDetailPanel({
   ticker, entryPrice, targetPrice, stopPrice, entryDate,
   closePrice, exitReason, bars,
 }: TradeDetailPanelProps) {
-  const { dataMin, dataMax, filteredBars } = useMemo(() => {
+  if (!bars || bars.length === 0) {
+    return (
+      <div className="border-t border-border bg-bg-card">
+        <div className="px-4 py-2 border-b border-border flex items-center justify-between">
+          <span className="text-xs font-mono font-bold text-text-bright">{ticker}</span>
+        </div>
+        <div className="py-8 text-center text-xs text-text-dim font-mono">NO DATA</div>
+      </div>
+    )
+  }
+
+  const { dataMin, dataMax, displayBars } = useMemo(() => {
     const allLow = Math.min(...bars.map(b => b.l))
     const allHigh = Math.max(...bars.map(b => b.h))
     const pad = (allHigh - allLow) * 0.05
 
-    const entryIdx = bars.findIndex(b => b.d >= entryDate)
+    const entryIdx = bars.findIndex(b => new Date(b.d) >= new Date(entryDate))
     const startIdx = Math.max(0, entryIdx - 5)
     const subset = bars.slice(startIdx)
 
     return {
       dataMin: allLow - pad,
       dataMax: allHigh + pad,
-      filteredBars: subset,
+      displayBars: subset,
     }
   }, [bars, entryDate])
 
-  const isTargetHit = exitReason === 'TARGET_HIT'
-  const isStoppedOut = exitReason === 'STOPPED_OUT'
-  const exitColor = isTargetHit ? '#00ff88' : isStoppedOut ? '#ff3b3b' : '#888888'
+  const exitColor = exitReason === 'TARGET_HIT' ? '#00ff88'
+    : exitReason === 'STOPPED_OUT' ? '#ff3b3b'
+    : '#888888'
 
   return (
     <div className="border-t border-border bg-bg-card">
@@ -108,7 +128,7 @@ export default function TradeDetailPanel({
       </div>
       <div className="p-3">
         <ResponsiveContainer width="100%" height={260}>
-          <ComposedChart data={filteredBars} margin={{ top: 8, right: 16, bottom: 8, left: 8 }}>
+          <ComposedChart data={displayBars} margin={{ top: 8, right: 16, bottom: 8, left: 8 }}>
             <XAxis
               dataKey="d"
               tick={{ fill: AXIS_COLOR, fontSize: 9, fontFamily: 'JetBrains Mono' }}
@@ -137,11 +157,7 @@ export default function TradeDetailPanel({
               dataKey="h"
               shape={<CandlestickBar dataMin={dataMin} />}
               isAnimationActive={false}
-            >
-              {filteredBars.map((_, i) => (
-                <rect key={i} fill="transparent" />
-              ))}
-            </Bar>
+            />
 
             <ReferenceLine
               y={entryPrice}
