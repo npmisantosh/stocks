@@ -95,7 +95,7 @@ export default function TradeDetailPanel({
     const pad = (allHigh - allLow) * 0.05
 
     const entryIdx = bars.findIndex(b => new Date(b.d) >= new Date(entryDate))
-    const startIdx = Math.max(0, entryIdx - 5)
+    const startIdx = Math.max(0, entryIdx - 25)
     const subset = bars.slice(startIdx)
 
     return {
@@ -127,7 +127,7 @@ export default function TradeDetailPanel({
         </div>
       </div>
       <div className="p-3">
-        <ResponsiveContainer width="100%" height={260}>
+        <ResponsiveContainer width="100%" height={350}>
           <ComposedChart data={displayBars} margin={{ top: 8, right: 16, bottom: 8, left: 8 }}>
             <XAxis
               dataKey="d"
