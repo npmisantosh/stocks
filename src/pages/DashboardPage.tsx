@@ -21,6 +21,18 @@ export default function DashboardPage() {
     fetchOHLCData().then(setOhlc).catch(() => {})
   }, [])
 
+  function latestPrice(ticker: string): number | null {
+    const bars = ohlc?.tickers[ticker]
+    if (!bars || bars.length === 0) return null
+    return bars[bars.length - 1].c
+  }
+
+  function calcPnL(entryPrice: number, ticker: string): number {
+    const lp = latestPrice(ticker)
+    if (lp == null) return 0
+    return (lp - entryPrice) / entryPrice * 100
+  }
+
   if (loading) return (
     <div className="flex items-center justify-center h-64">
       <Spinner size="lg" />
@@ -126,8 +138,8 @@ export default function DashboardPage() {
                   <td className="hidden sm:table-cell py-2.5 px-3 text-right font-mono text-text-dim">{formatCurrency(p.entry_price)}</td>
                   <td className="hidden sm:table-cell py-2.5 px-3 text-right font-mono text-text">{formatCurrency(p.target_price)}</td>
                   <td className="hidden sm:table-cell py-2.5 px-3 text-right font-mono text-red">{formatCurrency(p.stop_price)}</td>
-                  <td className={`py-2.5 px-3 text-right font-mono font-medium ${(p.unrealized_pct ?? 0) > 0 ? 'text-green' : (p.unrealized_pct ?? 0) < 0 ? 'text-red' : 'text-text-dim'}`}>
-                    {formatPct(p.unrealized_pct ?? 0)}
+                  <td className={`py-2.5 px-3 text-right font-mono font-medium ${calcPnL(p.entry_price, p.ticker) > 0 ? 'text-green' : calcPnL(p.entry_price, p.ticker) < 0 ? 'text-red' : 'text-text-dim'}`}>
+                    {formatPct(calcPnL(p.entry_price, p.ticker))}
                   </td>
                   <td className="py-2.5 px-3 text-right font-mono text-text-dim">{p.days_held}d</td>
                   <td className="py-2.5 px-3"><StatusPill value={p.state} /></td>

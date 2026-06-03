@@ -23,6 +23,18 @@ export default function OpenPositionsPage() {
     fetchOHLCData().then(setOhlc).catch(() => {})
   }, [])
 
+  function latestPrice(ticker: string): number | null {
+    const bars = ohlc?.tickers[ticker]
+    if (!bars || bars.length === 0) return null
+    return bars[bars.length - 1].c
+  }
+
+  function calcPnL(entryPrice: number, ticker: string): number {
+    const lp = latestPrice(ticker)
+    if (lp == null) return 0
+    return (lp - entryPrice) / entryPrice * 100
+  }
+
   if (loading) return (
     <div className="flex items-center justify-center h-64">
       <Spinner size="lg" />
@@ -39,13 +51,13 @@ export default function OpenPositionsPage() {
     let cmp = 0
     if (sortKey === 'ticker') cmp = a.ticker.localeCompare(b.ticker)
     else if (sortKey === 'entry_price') cmp = a.entry_price - b.entry_price
-    else if (sortKey === 'pnl') cmp = (a.unrealized_pct ?? 0) - (b.unrealized_pct ?? 0)
+    else if (sortKey === 'pnl') cmp = calcPnL(a.entry_price, a.ticker) - calcPnL(b.entry_price, b.ticker)
     else if (sortKey === 'days_held') cmp = a.days_held - b.days_held
     else if (sortKey === 'hold_days') cmp = a.hold_days - b.hold_days
     return sortAsc ? cmp : -cmp
   })
 
-  const openPnL = data.open_positions.reduce((sum, p) => sum + (p.unrealized_pct ?? 0), 0)
+  const openPnL = data.open_positions.reduce((sum, p) => sum + calcPnL(p.entry_price, p.ticker), 0)
   const avgPnL = data.open_positions.length > 0 ? openPnL / data.open_positions.length : 0
 
   return (
@@ -135,8 +147,8 @@ export default function OpenPositionsPage() {
                 <td className="hidden sm:table-cell py-2.5 px-3 sm:px-4 text-right font-mono text-text-dim">{formatCurrency(p.entry_price)}</td>
                 <td className="hidden sm:table-cell py-2.5 px-3 sm:px-4 text-right font-mono text-text">{formatCurrency(p.target_price)}</td>
                 <td className="hidden sm:table-cell py-2.5 px-3 sm:px-4 text-right font-mono text-red">{formatCurrency(p.stop_price)}</td>
-                <td className={`py-2.5 px-3 sm:px-4 text-right font-mono font-medium ${(p.unrealized_pct ?? 0) > 0 ? 'text-green' : (p.unrealized_pct ?? 0) < 0 ? 'text-red' : 'text-text-dim'}`}>
-                  {formatPct(p.unrealized_pct ?? 0)}
+                <td className={`py-2.5 px-3 sm:px-4 text-right font-mono font-medium ${calcPnL(p.entry_price, p.ticker) > 0 ? 'text-green' : calcPnL(p.entry_price, p.ticker) < 0 ? 'text-red' : 'text-text-dim'}`}>
+                  {formatPct(calcPnL(p.entry_price, p.ticker))}
                 </td>
                 <td className={`py-2.5 px-3 sm:px-4 text-right font-mono ${p.hold_days - p.days_held <= 1 ? 'text-amber' : 'text-text-dim'}`}>
                   {p.days_held}d / {p.hold_days}d
