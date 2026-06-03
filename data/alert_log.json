@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "exported_at": "2026-06-03T05:06:56.062840",
+  "exported_at": "2026-06-03T05:07:12.851182",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [],
@@ -12,7 +12,7 @@
       "stop_price": 253.42220947265625,
       "expected_return_pct": 4.0,
       "hold_days": 6,
-      "days_held": 6,
+      "days_held": 7,
       "entry_date": "2026-06-01",
       "state": "HELD_ANOTHER",
       "signal_reason": "meanrev_2"
@@ -24,7 +24,7 @@
       "stop_price": 76.28079940795898,
       "expected_return_pct": 3.0,
       "hold_days": 4,
-      "days_held": 1,
+      "days_held": 2,
       "entry_date": "2026-06-02",
       "state": "HELD_ANOTHER",
       "signal_reason": "trend_1"
@@ -36,7 +36,7 @@
       "stop_price": 1049.7339526367186,
       "expected_return_pct": 3.0,
       "hold_days": 4,
-      "days_held": 1,
+      "days_held": 2,
       "entry_date": "2026-06-02",
       "state": "HELD_ANOTHER",
       "signal_reason": "trend_1"
@@ -48,7 +48,7 @@
       "stop_price": 206.5420928955078,
       "expected_return_pct": 3.0,
       "hold_days": 4,
-      "days_held": 1,
+      "days_held": 2,
       "entry_date": "2026-06-02",
       "state": "HELD_ANOTHER",
       "signal_reason": "trend_2"
@@ -60,7 +60,7 @@
       "stop_price": 111.71489822387694,
       "expected_return_pct": 3.0,
       "hold_days": 4,
-      "days_held": 1,
+      "days_held": 2,
       "entry_date": "2026-06-02",
       "state": "HELD_ANOTHER",
       "signal_reason": "trend_4"
