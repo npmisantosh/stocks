@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import Spinner from '../components/ui/Spinner'
-import PositionsTable from '../components/dashboard/PositionsTable'
 import { useAlertData } from '../hooks/useAlertData'
 import { useAutoRefresh } from '../hooks/useAutoRefresh'
-import { formatPct } from '../lib/formatters'
+import { formatPct, formatCurrency } from '../lib/formatters'
 import MetricCard from '../components/ui/MetricCard'
+import StatusPill from '../components/ui/StatusPill'
 import { fetchOHLCData } from '../lib/api'
 import { OHLCData } from '../types/ohlc'
 import TradeDetailPanel from '../components/trade/TradeDetailPanel'
@@ -109,40 +109,62 @@ export default function OpenPositionsPage() {
       </div>
 
       {/* Table — horizontal scroll on mobile */}
-      <div className="border border-border bg-bg-card">
-        <div className="px-4 py-2 border-b border-border flex items-center justify-between">
-          <span className="text-2xs text-text-dim font-mono">{sorted.length} POSITIONS</span>
-        </div>
-        <div>
-          <div className="p-1 overflow-x-auto">
-            <PositionsTable openPositions={sorted} />
-          </div>
-          {sorted.map((pos) => (
-            <div key={pos.ticker}>
-              <button
+      <div className="border border-border bg-bg-card overflow-x-auto">
+        <table className="w-full text-2xs sm:text-xs font-mono min-w-[600px]">
+          <thead>
+            <tr className="border-b border-border text-text-dim text-2xs uppercase tracking-wider">
+              <th className="text-left py-2 px-3 sm:px-4 font-medium">TICKER</th>
+              <th className="text-right py-2 px-3 sm:px-4 font-medium">ENTRY</th>
+              <th className="text-right py-2 px-3 sm:px-4 font-medium">TARGET</th>
+              <th className="text-right py-2 px-3 sm:px-4 font-medium">STOP</th>
+              <th className="text-right py-2 px-3 sm:px-4 font-medium">P&L</th>
+              <th className="text-right py-2 px-3 sm:px-4 font-medium">HELD / MAX</th>
+              <th className="text-left py-2 px-3 sm:px-4 font-medium">STATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sorted.flatMap((p) => [
+              <tr
+                key={p.ticker}
                 onClick={() =>
-                  setSelectedTicker(selectedTicker === pos.ticker ? null : pos.ticker)
+                  setSelectedTicker(selectedTicker === p.ticker ? null : p.ticker)
                 }
-                className="w-full flex items-center gap-2 px-4 py-1.5 text-2xs font-mono text-text-dim hover:bg-bg-hover border-t border-border/40 transition-colors"
+                className="border-t border-border/40 hover:bg-bg-hover trade-row cursor-pointer"
               >
-                <span className={`transition-transform ${selectedTicker === pos.ticker ? 'rotate-90' : ''}`}>
-                  ▶
-                </span>
-                <span>SHOW CHART — {pos.ticker}</span>
-              </button>
-              {selectedTicker === pos.ticker && ohlc?.tickers[pos.ticker] && (
-                <TradeDetailPanel
-                  ticker={pos.ticker}
-                  entryPrice={pos.entry_price}
-                  targetPrice={pos.target_price}
-                  stopPrice={pos.stop_price}
-                  entryDate={pos.entry_date}
-                  bars={ohlc.tickers[pos.ticker]}
-                />
-              )}
-            </div>
-          ))}
-        </div>
+                <td className="py-2.5 px-3 sm:px-4 font-bold text-text-bright">{p.ticker}</td>
+                <td className="py-2.5 px-3 sm:px-4 text-right font-mono text-text-dim">{formatCurrency(p.entry_price)}</td>
+                <td className="py-2.5 px-3 sm:px-4 text-right font-mono text-text">{formatCurrency(p.target_price)}</td>
+                <td className="py-2.5 px-3 sm:px-4 text-right font-mono text-red">{formatCurrency(p.stop_price)}</td>
+                <td className={`py-2.5 px-3 sm:px-4 text-right font-mono font-medium ${(p.unrealized_pct ?? 0) > 0 ? 'text-green' : (p.unrealized_pct ?? 0) < 0 ? 'text-red' : 'text-text-dim'}`}>
+                  {formatPct(p.unrealized_pct ?? 0)}
+                </td>
+                <td className={`py-2.5 px-3 sm:px-4 text-right font-mono ${p.hold_days - p.days_held <= 1 ? 'text-amber' : 'text-text-dim'}`}>
+                  {p.days_held}d / {p.hold_days}d
+                </td>
+                <td className="py-2.5 px-3 sm:px-4"><StatusPill value={p.state} /></td>
+              </tr>,
+              <tr key={`chart-${p.ticker}`}>
+                <td colSpan={7} className="p-0">
+                  {selectedTicker === p.ticker && ohlc?.tickers[p.ticker] && (
+                    <TradeDetailPanel
+                      ticker={p.ticker}
+                      entryPrice={p.entry_price}
+                      targetPrice={p.target_price}
+                      stopPrice={p.stop_price}
+                      entryDate={p.entry_date}
+                      bars={ohlc.tickers[p.ticker]}
+                    />
+                  )}
+                </td>
+              </tr>,
+            ])}
+            {sorted.length === 0 && (
+              <tr>
+                <td colSpan={7} className="py-6 text-center text-xs text-text-dim font-mono">NO OPEN POSITIONS</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   )
