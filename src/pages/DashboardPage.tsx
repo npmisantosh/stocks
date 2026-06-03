@@ -14,7 +14,8 @@ export default function DashboardPage() {
   useAutoRefresh({ onRefresh: refetch })
 
   const [ohlc, setOhlc] = useState<OHLCData | null>(null)
-  const [selectedTicker, setSelectedTicker] = useState<string | null>(null)
+  const [openSelectedKey, setOpenSelectedKey] = useState<string | null>(null)
+  const [closeSelectedKey, setCloseSelectedKey] = useState<string | null>(null)
 
   useEffect(() => {
     fetchOHLCData().then(setOhlc).catch(() => {})
@@ -115,9 +116,10 @@ export default function DashboardPage() {
               {open_positions.slice(0, 5).flatMap((p) => [
                 <tr
                   key={p.ticker}
-                  onClick={() =>
-                    setSelectedTicker(selectedTicker === p.ticker ? null : p.ticker)
-                  }
+                  onClick={() => {
+                    const key = p.ticker
+                    setOpenSelectedKey(openSelectedKey === key ? null : key)
+                  }}
                   className="border-t border-border/40 hover:bg-bg-hover trade-row cursor-pointer"
                 >
                   <td className="py-2.5 px-3 font-bold text-text-bright">{p.ticker}</td>
@@ -130,7 +132,7 @@ export default function DashboardPage() {
                   <td className="py-2.5 px-3 text-right font-mono text-text-dim">{p.days_held}d</td>
                   <td className="py-2.5 px-3"><StatusPill value={p.state} /></td>
                 </tr>,
-                selectedTicker === p.ticker && ohlc?.tickers[p.ticker] ? (
+                openSelectedKey === p.ticker && ohlc?.tickers[p.ticker] ? (
                   <tr key={`chart-${p.ticker}`}>
                     <td colSpan={7} className="p-0">
                       <TradeDetailPanel
@@ -172,9 +174,10 @@ export default function DashboardPage() {
               {closed_trades.slice(0, 5).flatMap((t) => [
                 <tr
                   key={`${t.ticker}-${t.entry_date}`}
-                  onClick={() =>
-                    setSelectedTicker(selectedTicker === t.ticker ? null : t.ticker)
-                  }
+                  onClick={() => {
+                    const key = `${t.ticker}-${t.entry_date}-${t.close_date}`
+                    setCloseSelectedKey(closeSelectedKey === key ? null : key)
+                  }}
                   className="border-t border-border/40 hover:bg-bg-hover trade-row cursor-pointer"
                 >
                   <td className="py-2.5 px-3 font-bold text-text-bright">{t.ticker}</td>
@@ -192,7 +195,7 @@ export default function DashboardPage() {
                   <td className="py-2.5 px-3"><StatusPill value={t.exit_reason} /></td>
                   <td className="py-2.5 px-3 text-right font-mono text-text-dim">{formatDays(t.days_held)}</td>
                 </tr>,
-                selectedTicker === t.ticker && ohlc?.tickers[t.ticker] ? (
+                closeSelectedKey === `${t.ticker}-${t.entry_date}-${t.close_date}` && ohlc?.tickers[t.ticker] ? (
                   <tr key={`chart-${t.ticker}-${t.entry_date}`}>
                     <td colSpan={6} className="p-0">
                       <TradeDetailPanel

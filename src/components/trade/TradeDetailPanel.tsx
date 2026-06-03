@@ -98,18 +98,18 @@ export default function TradeDetailPanel({
     )
   }
 
-  const { dataMin, dataMax, displayBars } = useMemo(() => {
-    const allLow = Math.min(...bars.map(b => b.l))
-    const allHigh = Math.max(...bars.map(b => b.h))
-    const pad = (allHigh - allLow) * 0.05
-
+    const { dataMin, dataMax, displayBars } = useMemo(() => {
     const entryIdx = bars.findIndex(b => new Date(b.d) >= new Date(entryDate))
     const startIdx = Math.max(0, entryIdx - 25)
     const subset = bars.slice(startIdx)
 
+    const displayLow = Math.min(...subset.map(b => b.l))
+    const displayHigh = Math.max(...subset.map(b => b.h))
+    const pad = (displayHigh - displayLow) * 0.05
+
     return {
-      dataMin: allLow - pad,
-      dataMax: allHigh + pad,
+      dataMin: displayLow - pad,
+      dataMax: displayHigh + pad,
       displayBars: subset,
     }
   }, [bars, entryDate])

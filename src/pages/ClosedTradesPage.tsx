@@ -31,7 +31,7 @@ export default function ClosedTradesPage() {
   const [sortAsc, setSortAsc] = useState(false)
 
   const [ohlc, setOhlc] = useState<OHLCData | null>(null)
-  const [selectedTicker, setSelectedTicker] = useState<string | null>(null)
+  const [selectedKey, setSelectedKey] = useState<string | null>(null)
 
   useEffect(() => {
     fetchOHLCData().then(setOhlc).catch(() => {})
@@ -140,9 +140,10 @@ export default function ClosedTradesPage() {
             {pageData.flatMap((t) => [
               <tr
                 key={`${t.ticker}-${t.entry_date}-${t.close_date}`}
-                onClick={() =>
-                  setSelectedTicker(selectedTicker === t.ticker ? null : t.ticker)
-                }
+                onClick={() => {
+                  const key = `${t.ticker}-${t.entry_date}-${t.close_date}`
+                  setSelectedKey(selectedKey === key ? null : key)
+                }}
                 className="border-t border-border/50 hover:bg-bg-hover trade-row cursor-pointer"
               >
                 <td className="py-2.5 px-3 sm:px-4 font-bold text-text-bright">{t.ticker}</td>
@@ -154,7 +155,7 @@ export default function ClosedTradesPage() {
                 <td className="py-2.5 px-3 sm:px-4"><StatusPill value={t.exit_reason} /></td>
                 <td className="py-2.5 px-3 sm:px-4 text-right text-text-dim">{formatDays(t.days_held)}</td>
               </tr>,
-              selectedTicker === t.ticker && ohlc?.tickers[t.ticker] ? (
+              selectedKey === `${t.ticker}-${t.entry_date}-${t.close_date}` && ohlc?.tickers[t.ticker] ? (
                 <tr key={`chart-${t.ticker}-${t.entry_date}-${t.close_date}`}>
                   <td colSpan={6} className="p-0">
                     <TradeDetailPanel
