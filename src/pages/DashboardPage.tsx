@@ -6,6 +6,7 @@ import { useAlertData } from '../hooks/useAlertData'
 import { useAutoRefresh } from '../hooks/useAutoRefresh'
 import { fetchOHLCData } from '../lib/api'
 import { OHLCData } from '../types/ohlc'
+import ohlcData from '../data/ohlc_data.json'
 import TradeDetailPanel from '../components/trade/TradeDetailPanel'
 import { formatPct, formatCurrency, formatDays, formatDate } from '../lib/formatters'
 
@@ -22,7 +23,7 @@ export default function DashboardPage() {
   }, [])
 
   function latestPrice(ticker: string): number | null {
-    const bars = ohlc?.tickers[ticker]
+    const bars = (ohlcData as OHLCData).tickers[ticker]
     if (!bars || bars.length === 0) return null
     return bars[bars.length - 1].c
   }
