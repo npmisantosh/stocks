@@ -140,7 +140,10 @@ export default function ClosedTradesPage() {
             {pageData.flatMap((t) => [
               <tr
                 key={`${t.ticker}-${t.entry_date}-${t.close_date}`}
-                className="border-t border-border/50 hover:bg-bg-hover trade-row"
+                onClick={() =>
+                  setSelectedTicker(selectedTicker === t.ticker ? null : t.ticker)
+                }
+                className="border-t border-border/50 hover:bg-bg-hover trade-row cursor-pointer"
               >
                 <td className="py-2.5 px-3 sm:px-4 font-bold text-text-bright">{t.ticker}</td>
                 <td className="py-2.5 px-3 sm:px-4 text-text-dim">{formatDate(t.entry_date)}</td>
@@ -151,34 +154,26 @@ export default function ClosedTradesPage() {
                 <td className="py-2.5 px-3 sm:px-4"><StatusPill value={t.exit_reason} /></td>
                 <td className="py-2.5 px-3 sm:px-4 text-right text-text-dim">{formatDays(t.days_held)}</td>
               </tr>,
-              <tr key={`chart-${t.ticker}-${t.entry_date}-${t.close_date}`}>
-                <td colSpan={6} className="p-0">
-                  <div className="border-t border-border/30">
-                    <button
-                      onClick={() =>
-                        setSelectedTicker(selectedTicker === t.ticker ? null : t.ticker)
-                      }
-                      className="w-full flex items-center gap-2 px-4 py-1.5 text-2xs font-mono text-text-dim hover:bg-bg-hover transition-colors"
-                    >
-                      <span className={`transition-transform ${selectedTicker === t.ticker ? 'rotate-90' : ''}`}>
-                        ▶
-                      </span>
-                      <span>SHOW CHART — {t.ticker}</span>
-                    </button>
-                    {selectedTicker === t.ticker && ohlc?.tickers[t.ticker] && (
-                      <TradeDetailPanel
-                        ticker={t.ticker}
-                        entryPrice={t.entry_price}
-                        closePrice={t.close_price}
-                        entryDate={t.entry_date}
-                        exitReason={t.exit_reason}
-                        bars={ohlc.tickers[t.ticker]}
-                      />
-                    )}
-                  </div>
-                </td>
-              </tr>,
+              selectedTicker === t.ticker && ohlc?.tickers[t.ticker] ? (
+                <tr key={`chart-${t.ticker}-${t.entry_date}-${t.close_date}`}>
+                  <td colSpan={6} className="p-0">
+                    <TradeDetailPanel
+                      ticker={t.ticker}
+                      entryPrice={t.entry_price}
+                      closePrice={t.close_price}
+                      entryDate={t.entry_date}
+                      exitReason={t.exit_reason}
+                      bars={ohlc.tickers[t.ticker]}
+                    />
+                  </td>
+                </tr>
+              ) : [],
             ])}
+            {pageData.length === 0 && (
+              <tr>
+                <td colSpan={6} className="py-6 text-center text-xs text-text-dim font-mono">NO CLOSED TRADES</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
