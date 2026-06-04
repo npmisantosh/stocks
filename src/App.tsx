@@ -13,7 +13,7 @@ export default function App() {
   const exportedAt = data?.exported_at ?? '—'
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/stocks">
       <div className="flex min-h-screen bg-bg">
         <Sidebar exportedAt={exportedAt} />
         <MobileNav />
