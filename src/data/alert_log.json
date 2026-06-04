@@ -1,10 +1,33 @@
 {
   "version": "2.0",
-  "exported_at": "2026-06-04T23:34:15.650263",
-  "system_status": "no_signals",
+  "exported_at": "2026-06-04T23:58:53.869086",
+  "system_status": "active",
   "day_score": 0.0,
-  "signals": [],
-  "open_positions": [],
+  "signals": [
+    {
+      "ticker": "TEST",
+      "price": 100.0,
+      "target_price": 106.0,
+      "stop_price": 97.0,
+      "expected_return_pct": 0.0,
+      "timestamp": "2026-06-04"
+    }
+  ],
+  "open_positions": [
+    {
+      "ticker": "TEST",
+      "entry_price": 100.0,
+      "current_price": null,
+      "target_price": 106.0,
+      "stop_price": 97.0,
+      "expected_return_pct": 0.0,
+      "hold_days": 0,
+      "days_held": 0,
+      "entry_date": "2026-06-04",
+      "state": "PENDING",
+      "signal_reason": "test"
+    }
+  ],
   "closed_trades": [
     {
       "ticker": "ABNB",
