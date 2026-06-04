@@ -47,11 +47,14 @@ interface CandlestickBarProps {
 
 function CandlestickBar({ x, y, width, height, payload, dataMin, isEntry }: CandlestickBarProps) {
   if (x == null || y == null || width == null || height == null || width <= 0 || height <= 0) return null
-  const { o, h, l, c } = payload ?? { o: 0, h: 0, l: 0, c: 0 }
+  const raw = payload ?? { o: 0, h: 0, l: 0, c: 0 }
+  const { o, h, l, c } = raw
 
   const cx = x + width / 2
   const bw = Math.max(width * 0.6, 2)
-  const ppu = height / (h - dataMin)
+  const range = h - dataMin
+  if (!range || !isFinite(range)) return null
+  const ppu = height / range
 
   const highY = y
   const lowY = y + (h - l) * ppu
@@ -98,19 +101,22 @@ export default function TradeDetailPanel({
     )
   }
 
-    const { dataMin, dataMax, displayBars } = useMemo(() => {
+    const { dataMin, dataMax, displayBars, entryIdx } = useMemo(() => {
     const entryIdx = bars.findIndex(b => new Date(b.d) >= new Date(entryDate))
     const startIdx = Math.max(0, entryIdx - 25)
     const subset = bars.slice(startIdx)
 
-    const displayLow = Math.min(...subset.map(b => b.l))
-    const displayHigh = Math.max(...subset.map(b => b.h))
+    const lows = subset.map(b => b.l)
+    const highs = subset.map(b => b.h)
+    const displayLow = lows.length ? Math.min(...lows) : 0
+    const displayHigh = highs.length ? Math.max(...highs) : 0
     const pad = (displayHigh - displayLow) * 0.05
 
     return {
       dataMin: displayLow - pad,
       dataMax: displayHigh + pad,
       displayBars: subset,
+      entryIdx,
     }
   }, [bars, entryDate])
 
@@ -148,6 +154,7 @@ export default function TradeDetailPanel({
             />
             <YAxis
               domain={[dataMin, dataMax]}
+              allowDataOverflow
               tick={{ fill: AXIS_COLOR, fontSize: 9, fontFamily: 'JetBrains Mono' }}
               tickFormatter={formatPrice}
               tickLine={false}
@@ -168,7 +175,7 @@ export default function TradeDetailPanel({
                 <CandlestickBar
                   {...props}
                   dataMin={dataMin}
-                  isEntry={props.payload?.d === entryDate}
+                  isEntry={props.index === entryIdx}
                 />
               )}
               isAnimationActive={false}
