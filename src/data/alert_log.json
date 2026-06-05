@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "exported_at": "2026-06-05T20:11:20.436019",
+  "exported_at": "2026-06-05T20:12:10.673486",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [
@@ -14,58 +14,6 @@
     }
   ],
   "open_positions": [
-    {
-      "ticker": "LLY",
-      "entry_price": 1125.27001953125,
-      "current_price": null,
-      "target_price": 1163.5292001953126,
-      "stop_price": 1071.98,
-      "expected_return_pct": 3.4,
-      "hold_days": 2,
-      "days_held": 2,
-      "entry_date": "2026-06-05",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "score=57.2 | trend_1"
-    },
-    {
-      "ticker": "DDOG",
-      "entry_price": 243.60000610351562,
-      "current_price": null,
-      "target_price": 246.27960617065426,
-      "stop_price": 230.20200576782224,
-      "expected_return_pct": 0.0,
-      "hold_days": 3,
-      "days_held": 3,
-      "entry_date": "2026-06-04",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "gap_down suppressed, score=66.3"
-    },
-    {
-      "ticker": "PANW",
-      "entry_price": 279.25,
-      "current_price": null,
-      "target_price": 282.32174999999995,
-      "stop_price": 264.44975,
-      "expected_return_pct": 0.0,
-      "hold_days": 3,
-      "days_held": 3,
-      "entry_date": "2026-06-04",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "gap_down suppressed, score=67.6"
-    },
-    {
-      "ticker": "SMCI",
-      "entry_price": 46.900001525878906,
-      "current_price": null,
-      "target_price": 47.41590154266357,
-      "stop_price": 43.66390142059326,
-      "expected_return_pct": 0.0,
-      "hold_days": 3,
-      "days_held": 3,
-      "entry_date": "2026-06-04",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "gap_down suppressed, score=67.9"
-    },
     {
       "ticker": "TEST",
       "entry_price": 100.0,
@@ -81,6 +29,62 @@
     }
   ],
   "closed_trades": [
+    {
+      "ticker": "SMCI",
+      "entry_price": 46.900001525878906,
+      "close_price": 80.25199890136719,
+      "entry_date": "2026-06-04",
+      "close_date": "2026-06-05",
+      "expected_return_pct": 0.0,
+      "actual_return_pct": 0.0,
+      "hold_days": 3,
+      "days_held": 3,
+      "exit_reason": "TARGET_HIT",
+      "signal_reason": "gap_down suppressed, score=67.9",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "PANW",
+      "entry_price": 279.25,
+      "close_price": 147.7050018310547,
+      "entry_date": "2026-06-04",
+      "close_date": "2026-06-05",
+      "expected_return_pct": 0.0,
+      "actual_return_pct": 0.0,
+      "hold_days": 3,
+      "days_held": 3,
+      "exit_reason": "STOPPED_OUT",
+      "signal_reason": "gap_down suppressed, score=67.6",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "DDOG",
+      "entry_price": 243.60000610351562,
+      "close_price": 110.4800033569336,
+      "entry_date": "2026-06-04",
+      "close_date": "2026-06-05",
+      "expected_return_pct": 0.0,
+      "actual_return_pct": 0.0,
+      "hold_days": 3,
+      "days_held": 3,
+      "exit_reason": "STOPPED_OUT",
+      "signal_reason": "gap_down suppressed, score=66.3",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "LLY",
+      "entry_price": 1125.27001953125,
+      "close_price": 820.3032836914062,
+      "entry_date": "2026-06-05",
+      "close_date": "2026-06-05",
+      "expected_return_pct": 3.4,
+      "actual_return_pct": 0.0,
+      "hold_days": 2,
+      "days_held": 2,
+      "exit_reason": "STOPPED_OUT",
+      "signal_reason": "score=57.2 | trend_1",
+      "sell_signal_type": null
+    },
     {
       "ticker": "ABNB",
       "entry_price": 137.8699951171875,
@@ -391,15 +395,36 @@
     }
   ],
   "performance_summary": {
-    "total_trades": 0,
+    "total_trades": 4,
     "win_count": 0,
-    "loss_count": 0,
+    "loss_count": 4,
     "win_rate_pct": 0.0,
-    "avg_return_pct": 0.0,
-    "avg_hold_days": 0.0,
-    "best_trade_pct": 0.0,
-    "worst_trade_pct": 0.0,
-    "by_ticker": {}
+    "avg_return_pct": 0,
+    "avg_hold_days": 2.8,
+    "best_trade_pct": 0,
+    "worst_trade_pct": 0,
+    "by_ticker": {
+      "SMCI": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": 0.0
+      },
+      "PANW": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": 0.0
+      },
+      "DDOG": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": 0.0
+      },
+      "LLY": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": 0.0
+      }
+    }
   },
   "potential_buys": [],
   "promoted_signals": []
