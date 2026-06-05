@@ -53,8 +53,8 @@ export interface OpenPosition {
   entry_date: string
   state: PositionState
   signal_reason: string
-  current_price?: number
-  unrealized_pct?: number
+  current_price?: number | null
+  unrealized_pct?: number | null
 }
 
 export interface TickerStats {
@@ -75,6 +75,28 @@ export interface PerformanceSummary {
   by_ticker: Record<string, TickerStats>
 }
 
+// PotentialBuySignal: a BUY signal that was suppressed and remains on the watch list.
+// Internal-only fields (score, suppression_reason, etc.) are NOT exposed to the public dashboard.
+export interface PotentialBuySignal {
+  ticker: string
+  price: number
+  target_price: number
+  stop_price: number
+  trailing_stop_price: number | null
+  expected_return_pct: number
+}
+
+// PromotedSignal: a signal promoted from POTENTIAL_BUY to live BUY this morning.
+// Internal-only fields (original_score, promoted_at, etc.) are NOT exposed.
+export interface PromotedSignal {
+  ticker: string
+  price: number
+  target_price: number
+  stop_price: number
+  trailing_stop_price: number | null
+  expected_return_pct: number
+}
+
 // AlertLog: the top-level data structure
 export type SystemStatus = 'active' | 'no_signals' | 'error'
 
@@ -87,4 +109,6 @@ export interface AlertLog {
   open_positions: OpenPosition[]
   closed_trades: ClosedTrade[]
   performance_summary: PerformanceSummary
+  potential_buys: PotentialBuySignal[]       // ADD
+  promoted_signals: PromotedSignal[]         // ADD
 }

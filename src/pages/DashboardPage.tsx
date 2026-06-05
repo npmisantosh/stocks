@@ -48,6 +48,13 @@ export default function DashboardPage() {
 
   const { performance_summary, open_positions, closed_trades } = data
 
+  // Merge promoted signals into today's signals — promoted IS a signal
+  const todaysSignals = [
+    ...data.signals,
+    ...(data.promoted_signals ?? []),
+  ]
+  const pendingSignals = data.potential_buys ?? []
+
   return (
     <div className="space-y-4 sm:space-y-5">
       {/* Header row */}
@@ -105,6 +112,89 @@ export default function DashboardPage() {
           className="bg-bg-card"
         />
       </div>
+
+      {/* Pending Signals — on watch list, suppressed */}
+      {pendingSignals.length > 0 && (
+        <div className="border border-amber/30 bg-bg-card">
+          <div className="px-4 py-2 border-b border-amber/30 bg-amber/5 flex items-center justify-between">
+            <span className="bloomberg-label text-amber">💤 PENDING SIGNALS</span>
+            <span className="text-xs text-text-dim font-mono">{pendingSignals.length} ON WATCH</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-px bg-border">
+            {pendingSignals.map((sig) => (
+              <div key={sig.ticker} className="bg-bg-card p-4 hover:bg-bg-hover transition-colors">
+                <div className="flex items-start justify-between mb-3">
+                  <span className="text-lg font-mono font-bold text-text-bright">{sig.ticker}</span>
+                  <span className="text-lg font-mono font-bold text-green">+{sig.expected_return_pct.toFixed(1)}%</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 mb-3">
+                  <div>
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Entry</div>
+                    <div className="text-sm font-mono text-text-bright">{formatCurrency(sig.price)}</div>
+                  </div>
+                  <div>
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Target</div>
+                    <div className="text-sm font-mono text-green">{formatCurrency(sig.target_price)}</div>
+                  </div>
+                  <div>
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Stop</div>
+                    <div className="text-sm font-mono text-red">{formatCurrency(sig.stop_price)}</div>
+                  </div>
+                </div>
+                {sig.trailing_stop_price && (
+                  <div className="mb-2">
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Trailing Stop</div>
+                    <div className="text-sm font-mono text-amber">{formatCurrency(sig.trailing_stop_price)}</div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Today's Signals — live BUY alerts */}
+      {todaysSignals.length > 0 && (
+        <div className="border border-green/30 bg-bg-card">
+          <div className="px-4 py-2 border-b border-green/30 bg-green/5 flex items-center justify-between">
+            <span className="bloomberg-label text-green">TODAY&apos;S SIGNALS</span>
+            <span className="text-xs text-text-dim font-mono">{todaysSignals.length} ACTIVE</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-px bg-border">
+            {todaysSignals.map((sig) => (
+              <div
+                key={sig.ticker}
+                className="bg-bg-card p-4 hover:bg-bg-hover cursor-pointer transition-colors"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <span className="text-lg font-mono font-bold text-text-bright">{sig.ticker}</span>
+                  <span className="text-lg font-mono font-bold text-green">+{sig.expected_return_pct.toFixed(1)}%</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  <div>
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Entry</div>
+                    <div className="text-sm font-mono text-text-bright">{formatCurrency(sig.price)}</div>
+                  </div>
+                  <div>
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Target</div>
+                    <div className="text-sm font-mono text-green">{formatCurrency(sig.target_price)}</div>
+                  </div>
+                  <div>
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Stop</div>
+                    <div className="text-sm font-mono text-red">{formatCurrency(sig.stop_price)}</div>
+                  </div>
+                </div>
+                {'trailing_stop_price' in sig && sig.trailing_stop_price && (
+                  <div className="mt-2">
+                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Trailing Stop</div>
+                    <div className="text-sm font-mono text-amber">{formatCurrency(sig.trailing_stop_price)}</div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Open positions */}
       <div className="border border-border bg-bg-card overflow-x-auto">
@@ -235,52 +325,6 @@ export default function DashboardPage() {
           </tbody>
         </table>
       </div>
-
-      {/* Today's signals — full trade setup cards */}
-      {data.signals && (
-        <div className="border border-green/30 bg-bg-card">
-          <div className="px-4 py-2 border-b border-green/30 bg-green/5 flex items-center justify-between">
-            <span className="bloomberg-label text-green">TODAY&apos;S SIGNALS</span>
-            {data.signals.length > 0 && (
-              <span className="text-xs text-text-dim font-mono">{data.signals.length} ACTIVE</span>
-            )}
-          </div>
-          {data.signals.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-px bg-border">
-              {data.signals.map((sig) => (
-                <div
-                  key={sig.ticker}
-                  className="bg-bg-card p-4 hover:bg-bg-hover cursor-pointer transition-colors"
-                >
-                  {/* Ticker + return row */}
-                  <div className="flex items-start justify-between mb-3">
-                    <span className="text-lg font-mono font-bold text-text-bright">{sig.ticker}</span>
-                    <span className="text-lg font-mono font-bold text-green">+{sig.expected_return_pct.toFixed(1)}%</span>
-                  </div>
-
-                  {/* Entry / Target / Stop */}
-                  <div className="grid grid-cols-3 gap-2">
-                    <div>
-                      <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Entry</div>
-                      <div className="text-sm font-mono text-text-bright">{formatCurrency(sig.price)}</div>
-                    </div>
-                    <div>
-                      <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Target</div>
-                      <div className="text-sm font-mono text-green">{formatCurrency(sig.target_price)}</div>
-                    </div>
-                    <div>
-                      <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Stop</div>
-                      <div className="text-sm font-mono text-red">{formatCurrency(sig.stop_price)}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="py-6 text-center text-xs text-text-dim font-mono">NO SIGNALS TODAY</div>
-          )}
-        </div>
-      )}
     </div>
   )
 }

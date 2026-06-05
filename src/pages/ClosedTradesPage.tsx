@@ -4,19 +4,11 @@ import { useAlertData } from '../hooks/useAlertData'
 import { useAutoRefresh } from '../hooks/useAutoRefresh'
 import { formatPct, formatDate, formatDays } from '../lib/formatters'
 import StatusPill from '../components/ui/StatusPill'
-import { ExitReason } from '../types/alert'
 import { fetchOHLCData } from '../lib/api'
 import { OHLCData } from '../types/ohlc'
 import TradeDetailPanel from '../components/trade/TradeDetailPanel'
 
 const PAGE_SIZE = 20
-
-const EXIT_REASONS: ExitReason[] = [
-  'TARGET_HIT', 'STOPPED_OUT', 'SELL_SIGNAL', 'TIME_EXPIRED',
-  'RSI_OVERBOUGHT', 'MACD_BEARISH', 'STOCH_OVERBOUGHT',
-  'WILLIAMS_OVERBOUGHT', 'VOLUME_SPIKE_DOWN', 'DEATH_CROSS',
-  'BB_LOWER_BREAK', 'INTRADAY_STOP',
-]
 
 type SortKey = 'ticker' | 'entry_date' | 'close_date' | 'return' | 'days_held'
 
@@ -25,7 +17,6 @@ export default function ClosedTradesPage() {
   useAutoRefresh({ onRefresh: refetch })
 
   const [page, setPage] = useState(0)
-  const [exitFilter, setExitFilter] = useState<string>('')
   const [tickerFilter, setTickerFilter] = useState<string>('')
   const [sortKey, setSortKey] = useState<SortKey>('close_date')
   const [sortAsc, setSortAsc] = useState(false)
@@ -40,7 +31,6 @@ export default function ClosedTradesPage() {
   const filtered = useMemo(() => {
     if (!data) return []
     let list = [...data.closed_trades]
-    if (exitFilter) list = list.filter((t) => t.exit_reason === exitFilter)
     if (tickerFilter) list = list.filter((t) => t.ticker.toLowerCase().includes(tickerFilter.toLowerCase()))
     return list.sort((a, b) => {
       let cmp = 0
@@ -51,7 +41,7 @@ export default function ClosedTradesPage() {
       else if (sortKey === 'days_held') cmp = a.days_held - b.days_held
       return sortAsc ? cmp : -cmp
     })
-  }, [data, exitFilter, tickerFilter, sortKey, sortAsc])
+  }, [data, tickerFilter, sortKey, sortAsc])
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
   const pageData = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
@@ -75,16 +65,6 @@ export default function ClosedTradesPage() {
 
       {/* Filters — stack on mobile */}
       <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
-        <select
-          value={exitFilter}
-          onChange={(e) => { setExitFilter(e.target.value); setPage(0) }}
-          className="bg-bg-card border border-border text-text font-mono text-2xs sm:text-xs px-3 py-1.5 focus:border-green/40 focus:outline-none"
-        >
-          <option value="">ALL EXITS</option>
-          {EXIT_REASONS.map((r) => (
-            <option key={r} value={r}>{r.replace(/_/g, ' ')}</option>
-          ))}
-        </select>
         <input
           type="text"
           placeholder="TICKER FILTER..."

@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "exported_at": "2026-06-04T23:58:53.869086",
+  "exported_at": "2026-06-05T00:14:12.333398",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [
@@ -22,7 +22,7 @@
       "stop_price": 97.0,
       "expected_return_pct": 0.0,
       "hold_days": 0,
-      "days_held": 0,
+      "days_held": 1,
       "entry_date": "2026-06-04",
       "state": "PENDING",
       "signal_reason": "test"
@@ -348,5 +348,41 @@
     "best_trade_pct": 0.0,
     "worst_trade_pct": 0.0,
     "by_ticker": {}
-  }
+  },
+  "potential_buys": [
+    {
+      "ticker": "SMCI",
+      "price": 46.900001525878906,
+      "target_price": 47.41590154266357,
+      "stop_price": 43.66390142059326,
+      "trailing_stop_price": null,
+      "expected_return_pct": 0.0
+    },
+    {
+      "ticker": "PANW",
+      "price": 279.25,
+      "target_price": 282.32174999999995,
+      "stop_price": 264.44975,
+      "trailing_stop_price": null,
+      "expected_return_pct": 0.0
+    },
+    {
+      "ticker": "DDOG",
+      "price": 243.60000610351562,
+      "target_price": 246.27960617065426,
+      "stop_price": 230.20200576782224,
+      "trailing_stop_price": null,
+      "expected_return_pct": 0.0
+    }
+  ],
+  "promoted_signals": [
+    {
+      "ticker": "TEST",
+      "price": 100.0,
+      "target_price": 106.0,
+      "stop_price": 97.0,
+      "trailing_stop_price": null,
+      "expected_return_pct": 0.0
+    }
+  ]
 }
