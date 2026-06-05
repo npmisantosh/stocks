@@ -17,6 +17,7 @@ export default function DashboardPage() {
   const [ohlc, setOhlc] = useState<OHLCData | null>(null)
   const [openSelectedKey, setOpenSelectedKey] = useState<string | null>(null)
   const [closeSelectedKey, setCloseSelectedKey] = useState<string | null>(null)
+  const [pendingSelectedKey, setPendingSelectedKey] = useState<string | null>(null)
 
   useEffect(() => {
     fetchOHLCData().then(setOhlc).catch(() => {})
@@ -120,36 +121,50 @@ export default function DashboardPage() {
             <span className="bloomberg-label text-amber">💤 PENDING SIGNALS</span>
             <span className="text-xs text-text-dim font-mono">{pendingSignals.length} ON WATCH</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-px bg-border">
-            {pendingSignals.map((sig) => (
-              <div key={sig.ticker} className="bg-bg-card p-4 hover:bg-bg-hover transition-colors">
-                <div className="flex items-start justify-between mb-3">
-                  <span className="text-lg font-mono font-bold text-text-bright">{sig.ticker}</span>
-                  <span className="text-lg font-mono font-bold text-green">+{sig.expected_return_pct.toFixed(1)}%</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2 mb-3">
-                  <div>
-                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Entry</div>
-                    <div className="text-sm font-mono text-text-bright">{formatCurrency(sig.price)}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Target</div>
-                    <div className="text-sm font-mono text-green">{formatCurrency(sig.target_price)}</div>
-                  </div>
-                  <div>
-                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Stop</div>
-                    <div className="text-sm font-mono text-red">{formatCurrency(sig.stop_price)}</div>
-                  </div>
-                </div>
-                {sig.trailing_stop_price && (
-                  <div className="mb-2">
-                    <div className="text-2xs text-text-dim font-mono uppercase tracking-wider">Trailing Stop</div>
-                    <div className="text-sm font-mono text-amber">{formatCurrency(sig.trailing_stop_price)}</div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <table className="w-full text-2xs sm:text-xs font-mono">
+            <thead>
+              <tr className="text-text-dim text-2xs uppercase tracking-wider border-b border-border/40">
+                <th className="text-left py-2 px-3 font-medium">TICKER</th>
+                <th className="text-right py-2 px-3 font-medium">ENTRY</th>
+                <th className="text-right py-2 px-3 font-medium">TARGET</th>
+                <th className="text-right py-2 px-3 font-medium">STOP</th>
+                <th className="text-right py-2 px-3 font-medium hidden sm:table-cell">EXP RET</th>
+                <th className="py-2 px-3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {pendingSignals.flatMap((sig) => [
+                <tr
+                  key={sig.ticker}
+                  onClick={() => setPendingSelectedKey(pendingSelectedKey === sig.ticker ? null : sig.ticker)}
+                  className="border-t border-border/40 hover:bg-bg-hover cursor-pointer trade-row"
+                >
+                  <td className="py-2.5 px-3 font-bold text-text-bright">{sig.ticker}</td>
+                  <td className="py-2.5 px-3 text-right font-mono text-text-dim">{formatCurrency(sig.price)}</td>
+                  <td className="py-2.5 px-3 text-right font-mono text-green">{formatCurrency(sig.target_price)}</td>
+                  <td className="py-2.5 px-3 text-right font-mono text-red">{formatCurrency(sig.stop_price)}</td>
+                  <td className="py-2.5 px-3 text-right font-mono text-green hidden sm:table-cell">+{sig.expected_return_pct.toFixed(1)}%</td>
+                  <td className="py-2.5 px-3 text-center text-text-dim">
+                    {pendingSelectedKey === sig.ticker ? '▲' : '▼'}
+                  </td>
+                </tr>,
+                pendingSelectedKey === sig.ticker && ohlc?.tickers[sig.ticker] ? (
+                  <tr key={`chart-${sig.ticker}`}>
+                    <td colSpan={6} className="p-0">
+                      <TradeDetailPanel
+                        ticker={sig.ticker}
+                        entryPrice={sig.price}
+                        targetPrice={sig.target_price}
+                        stopPrice={sig.stop_price}
+                        entryDate={new Date().toISOString().split('T')[0]}
+                        bars={ohlc.tickers[sig.ticker]}
+                      />
+                    </td>
+                  </tr>
+                ) : [],
+              ])}
+            </tbody>
+          </table>
         </div>
       )}
 
