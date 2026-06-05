@@ -1,9 +1,33 @@
 {
   "version": "2.0",
-  "exported_at": "2026-06-05T05:05:29.214668",
+  "exported_at": "2026-06-05T07:03:44.550038",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [
+    {
+      "ticker": "DDOG",
+      "price": 243.60000610351562,
+      "target_price": 246.27960617065426,
+      "stop_price": 230.20200576782224,
+      "expected_return_pct": 0.0,
+      "timestamp": "2026-06-04"
+    },
+    {
+      "ticker": "PANW",
+      "price": 279.25,
+      "target_price": 282.32174999999995,
+      "stop_price": 264.44975,
+      "expected_return_pct": 0.0,
+      "timestamp": "2026-06-04"
+    },
+    {
+      "ticker": "SMCI",
+      "price": 46.900001525878906,
+      "target_price": 47.41590154266357,
+      "stop_price": 43.66390142059326,
+      "expected_return_pct": 0.0,
+      "timestamp": "2026-06-04"
+    },
     {
       "ticker": "TEST",
       "price": 100.0,
@@ -14,6 +38,45 @@
     }
   ],
   "open_positions": [
+    {
+      "ticker": "DDOG",
+      "entry_price": 243.60000610351562,
+      "current_price": null,
+      "target_price": 246.27960617065426,
+      "stop_price": 230.20200576782224,
+      "expected_return_pct": 0.0,
+      "hold_days": 0,
+      "days_held": 1,
+      "entry_date": "2026-06-04",
+      "state": "PENDING",
+      "signal_reason": "gap_down suppressed, score=66.3"
+    },
+    {
+      "ticker": "PANW",
+      "entry_price": 279.25,
+      "current_price": null,
+      "target_price": 282.32174999999995,
+      "stop_price": 264.44975,
+      "expected_return_pct": 0.0,
+      "hold_days": 0,
+      "days_held": 1,
+      "entry_date": "2026-06-04",
+      "state": "PENDING",
+      "signal_reason": "gap_down suppressed, score=67.6"
+    },
+    {
+      "ticker": "SMCI",
+      "entry_price": 46.900001525878906,
+      "current_price": null,
+      "target_price": 47.41590154266357,
+      "stop_price": 43.66390142059326,
+      "expected_return_pct": 0.0,
+      "hold_days": 0,
+      "days_held": 1,
+      "entry_date": "2026-06-04",
+      "state": "PENDING",
+      "signal_reason": "gap_down suppressed, score=67.9"
+    },
     {
       "ticker": "TEST",
       "entry_price": 100.0,
@@ -349,7 +412,16 @@
     "worst_trade_pct": 0.0,
     "by_ticker": {}
   },
-  "potential_buys": [
+  "potential_buys": [],
+  "promoted_signals": [
+    {
+      "ticker": "TEST",
+      "price": 100.0,
+      "target_price": 106.0,
+      "stop_price": 97.0,
+      "trailing_stop_price": null,
+      "expected_return_pct": 0.0
+    },
     {
       "ticker": "SMCI",
       "price": 46.900001525878906,
@@ -371,16 +443,6 @@
       "price": 243.60000610351562,
       "target_price": 246.27960617065426,
       "stop_price": 230.20200576782224,
-      "trailing_stop_price": null,
-      "expected_return_pct": 0.0
-    }
-  ],
-  "promoted_signals": [
-    {
-      "ticker": "TEST",
-      "price": 100.0,
-      "target_price": 106.0,
-      "stop_price": 97.0,
       "trailing_stop_price": null,
       "expected_return_pct": 0.0
     }
