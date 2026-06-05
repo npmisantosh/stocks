@@ -28,11 +28,47 @@ interface TradeDetailPanelProps {
 
 function formatDate(iso: string): string {
   const d = new Date(iso + 'T00:00:00')
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
 function formatPrice(v: number): string {
   return `$${v.toFixed(2)}`
+}
+
+function formatVol(v: number): string {
+  if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(2)}M`
+  if (v >= 1_000) return `${(v / 1_000).toFixed(0)}K`
+  return v.toString()
+}
+
+interface CustomTooltipProps {
+  active?: boolean
+  payload?: Array<{ payload: OHLCBar }>
+}
+
+function CustomTooltip({ active, payload }: CustomTooltipProps) {
+  if (!active || !payload || !payload.length) return null
+  const bar: OHLCBar = payload[0].payload
+  const isUp = bar.c >= bar.o
+  return (
+    <div style={TOOLTIP_STYLE}>
+      <div style={{ borderBottom: '1px solid #2a2a2a', paddingBottom: 4, marginBottom: 4, fontSize: 10 }}>
+        {formatDate(bar.d)}
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'auto auto', gap: '2px 12px' }}>
+        <span style={{ color: '#888' }}>O</span>
+        <span style={{ color: isUp ? '#00ff88' : '#ff3b3b' }}>{formatPrice(bar.o)}</span>
+        <span style={{ color: '#888' }}>H</span>
+        <span style={{ color: '#00ff88' }}>{formatPrice(bar.h)}</span>
+        <span style={{ color: '#888' }}>L</span>
+        <span style={{ color: '#ff3b3b' }}>{formatPrice(bar.l)}</span>
+        <span style={{ color: '#888' }}>C</span>
+        <span style={{ color: isUp ? '#00ff88' : '#ff3b3b' }}>{formatPrice(bar.c)}</span>
+        <span style={{ color: '#888' }}>Vol</span>
+        <span style={{ color: '#e0e0e0' }}>{formatVol(bar.v)}</span>
+      </div>
+    </div>
+  )
 }
 
 interface CandlestickBarProps {
@@ -162,12 +198,7 @@ export default function TradeDetailPanel({
               width={60}
             />
             <Tooltip
-              contentStyle={TOOLTIP_STYLE}
-              formatter={(value: number, name: string) => [
-                formatPrice(value),
-                name.toUpperCase(),
-              ]}
-              labelFormatter={(label: string) => formatDate(label)}
+              content={<CustomTooltip />}
             />
             <Bar
               dataKey="h"
