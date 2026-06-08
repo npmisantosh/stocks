@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "exported_at": "2026-06-05T20:12:10.673486",
+  "exported_at": "2026-06-08T16:00:02.307582",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [
@@ -21,14 +21,70 @@
       "target_price": 106.0,
       "stop_price": 97.0,
       "expected_return_pct": 0.0,
-      "hold_days": 1,
-      "days_held": 1,
+      "hold_days": 4,
+      "days_held": 4,
       "entry_date": "2026-06-04",
       "state": "OPEN",
       "signal_reason": "test"
     }
   ],
   "closed_trades": [
+    {
+      "ticker": "LLY",
+      "entry_price": 1125.27001953125,
+      "close_price": 820.3032836914062,
+      "entry_date": "2026-06-05",
+      "close_date": "2026-06-08",
+      "expected_return_pct": 3.4,
+      "actual_return_pct": 0.0,
+      "hold_days": 3,
+      "days_held": 3,
+      "exit_reason": "STOPPED_OUT",
+      "signal_reason": "score=57.2 | trend_1",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "DDOG",
+      "entry_price": 243.60000610351562,
+      "close_price": 110.4800033569336,
+      "entry_date": "2026-06-04",
+      "close_date": "2026-06-08",
+      "expected_return_pct": 0.0,
+      "actual_return_pct": 0.0,
+      "hold_days": 4,
+      "days_held": 4,
+      "exit_reason": "STOPPED_OUT",
+      "signal_reason": "gap_down suppressed, score=66.3",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "PANW",
+      "entry_price": 279.25,
+      "close_price": 147.7050018310547,
+      "entry_date": "2026-06-04",
+      "close_date": "2026-06-08",
+      "expected_return_pct": 0.0,
+      "actual_return_pct": 0.0,
+      "hold_days": 4,
+      "days_held": 4,
+      "exit_reason": "STOPPED_OUT",
+      "signal_reason": "gap_down suppressed, score=67.6",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "SMCI",
+      "entry_price": 46.900001525878906,
+      "close_price": 80.25199890136719,
+      "entry_date": "2026-06-04",
+      "close_date": "2026-06-08",
+      "expected_return_pct": 0.0,
+      "actual_return_pct": 0.0,
+      "hold_days": 4,
+      "days_held": 4,
+      "exit_reason": "TARGET_HIT",
+      "signal_reason": "gap_down suppressed, score=67.9",
+      "sell_signal_type": null
+    },
     {
       "ticker": "SMCI",
       "entry_price": 46.900001525878906,
@@ -400,16 +456,11 @@
     "loss_count": 4,
     "win_rate_pct": 0.0,
     "avg_return_pct": 0,
-    "avg_hold_days": 2.8,
+    "avg_hold_days": 3.8,
     "best_trade_pct": 0,
     "worst_trade_pct": 0,
     "by_ticker": {
-      "SMCI": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "PANW": {
+      "LLY": {
         "count": 1,
         "win_rate_pct": 0.0,
         "avg_return_pct": 0.0
@@ -419,7 +470,12 @@
         "win_rate_pct": 0.0,
         "avg_return_pct": 0.0
       },
-      "LLY": {
+      "PANW": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": 0.0
+      },
+      "SMCI": {
         "count": 1,
         "win_rate_pct": 0.0,
         "avg_return_pct": 0.0
