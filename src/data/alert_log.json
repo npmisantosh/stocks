@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "exported_at": "2026-06-09T07:03:33.270848",
+  "exported_at": "2026-06-09T16:00:02.216545",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [
@@ -21,7 +21,7 @@
       "target_price": 106.0,
       "stop_price": 97.0,
       "expected_return_pct": 0.0,
-      "hold_days": 4,
+      "hold_days": 5,
       "days_held": 5,
       "entry_date": "2026-06-04",
       "state": "OPEN",
@@ -516,12 +516,7 @@
     "best_trade_pct": 0,
     "worst_trade_pct": 0,
     "by_ticker": {
-      "LLY": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "DDOG": {
+      "SMCI": {
         "count": 1,
         "win_rate_pct": 0.0,
         "avg_return_pct": 0.0
@@ -531,7 +526,12 @@
         "win_rate_pct": 0.0,
         "avg_return_pct": 0.0
       },
-      "SMCI": {
+      "DDOG": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": 0.0
+      },
+      "LLY": {
         "count": 1,
         "win_rate_pct": 0.0,
         "avg_return_pct": 0.0
