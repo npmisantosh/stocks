@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "exported_at": "2026-06-09T16:00:02.216545",
+  "exported_at": "2026-06-09T20:00:28.322364",
   "system_status": "active",
   "day_score": 0.0,
   "signals": [
@@ -516,12 +516,7 @@
     "best_trade_pct": 0,
     "worst_trade_pct": 0,
     "by_ticker": {
-      "SMCI": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "PANW": {
+      "LLY": {
         "count": 1,
         "win_rate_pct": 0.0,
         "avg_return_pct": 0.0
@@ -531,7 +526,12 @@
         "win_rate_pct": 0.0,
         "avg_return_pct": 0.0
       },
-      "LLY": {
+      "PANW": {
+        "count": 1,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": 0.0
+      },
+      "SMCI": {
         "count": 1,
         "win_rate_pct": 0.0,
         "avg_return_pct": 0.0
