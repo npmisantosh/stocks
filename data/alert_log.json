@@ -1,23 +1,10 @@
 {
   "version": "1.0",
-  "exported_at": "2026-06-29T11:04:42.218260",
-  "system_status": "active",
+  "exported_at": "2026-06-29T20:32:04.364791",
+  "system_status": "no_signals",
   "day_score": 0.0,
   "signals": [],
-  "open_positions": [
-    {
-      "ticker": "AMZN",
-      "entry_price": 261.260009765625,
-      "target_price": 276.9356103515625,
-      "stop_price": 253.42220947265625,
-      "expected_return_pct": 4.0,
-      "hold_days": 6,
-      "days_held": 7,
-      "entry_date": "2026-06-01",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "meanrev_2"
-    }
-  ],
+  "open_positions": [],
   "closed_trades": [
     {
       "ticker": "KO",
@@ -73,6 +60,20 @@
       "days_held": 2,
       "exit_reason": "SELL_SIGNAL",
       "signal_reason": "trend_4",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "AMZN",
+      "entry_price": 261.260009765625,
+      "close_price": 240.13999938964844,
+      "entry_date": "2026-06-01",
+      "close_date": "2026-06-29",
+      "expected_return_pct": 4.0,
+      "actual_return_pct": -8.08,
+      "hold_days": 6,
+      "days_held": 7,
+      "exit_reason": "STOPPED_OUT",
+      "signal_reason": "meanrev_2",
       "sell_signal_type": null
     },
     {
@@ -203,15 +204,20 @@
     }
   ],
   "performance_summary": {
-    "total_trades": 13,
+    "total_trades": 15,
     "win_count": 4,
-    "loss_count": 9,
-    "win_rate_pct": 30.8,
-    "avg_return_pct": 3.31,
-    "avg_hold_days": 1.6,
+    "loss_count": 11,
+    "win_rate_pct": 26.7,
+    "avg_return_pct": 1.79,
+    "avg_hold_days": 2.3,
     "best_trade_pct": 18.98,
-    "worst_trade_pct": -3.86,
+    "worst_trade_pct": -8.08,
     "by_ticker": {
+      "AMZN": {
+        "count": 2,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": -8.08
+      },
       "KO": {
         "count": 1,
         "win_rate_pct": 100.0,
