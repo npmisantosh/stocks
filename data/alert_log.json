@@ -1,71 +1,10 @@
 {
   "version": "1.0",
-  "exported_at": "2026-07-01T11:01:54.551410",
-  "system_status": "active",
+  "exported_at": "2026-07-01T20:33:32.234651",
+  "system_status": "no_signals",
   "day_score": 0.0,
   "signals": [],
-  "open_positions": [
-    {
-      "ticker": "AMZN",
-      "entry_price": 261.260009765625,
-      "target_price": 276.9356103515625,
-      "stop_price": 253.42220947265625,
-      "expected_return_pct": 4.0,
-      "hold_days": 6,
-      "days_held": 7,
-      "entry_date": "2026-06-01",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "meanrev_2"
-    },
-    {
-      "ticker": "KO",
-      "entry_price": 78.63999938964844,
-      "target_price": 82.17879936218262,
-      "stop_price": 76.28079940795898,
-      "expected_return_pct": 3.0,
-      "hold_days": 4,
-      "days_held": 2,
-      "entry_date": "2026-06-02",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "trend_1"
-    },
-    {
-      "ticker": "LLY",
-      "entry_price": 1082.199951171875,
-      "target_price": 1130.8989489746093,
-      "stop_price": 1049.7339526367186,
-      "expected_return_pct": 3.0,
-      "hold_days": 4,
-      "days_held": 2,
-      "entry_date": "2026-06-02",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "trend_1"
-    },
-    {
-      "ticker": "ABBV",
-      "entry_price": 212.92999267578125,
-      "target_price": 222.5118423461914,
-      "stop_price": 206.5420928955078,
-      "expected_return_pct": 3.0,
-      "hold_days": 4,
-      "days_held": 2,
-      "entry_date": "2026-06-02",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "trend_2"
-    },
-    {
-      "ticker": "MRK",
-      "entry_price": 115.16999816894533,
-      "target_price": 120.35264808654784,
-      "stop_price": 111.71489822387694,
-      "expected_return_pct": 3.0,
-      "hold_days": 4,
-      "days_held": 2,
-      "entry_date": "2026-06-02",
-      "state": "HELD_ANOTHER",
-      "signal_reason": "trend_4"
-    }
-  ],
+  "open_positions": [],
   "closed_trades": [
     {
       "ticker": "KO",
@@ -265,15 +204,40 @@
     }
   ],
   "performance_summary": {
-    "total_trades": 9,
-    "win_count": 0,
-    "loss_count": 9,
-    "win_rate_pct": 0.0,
-    "avg_return_pct": -0.48,
-    "avg_hold_days": 1.4,
-    "best_trade_pct": 0.0,
-    "worst_trade_pct": -3.86,
+    "total_trades": 15,
+    "win_count": 4,
+    "loss_count": 11,
+    "win_rate_pct": 26.7,
+    "avg_return_pct": 1.79,
+    "avg_hold_days": 2.3,
+    "best_trade_pct": 18.98,
+    "worst_trade_pct": -8.08,
     "by_ticker": {
+      "AMZN": {
+        "count": 2,
+        "win_rate_pct": 0.0,
+        "avg_return_pct": -8.08
+      },
+      "KO": {
+        "count": 1,
+        "win_rate_pct": 100.0,
+        "avg_return_pct": 5.07
+      },
+      "LLY": {
+        "count": 1,
+        "win_rate_pct": 100.0,
+        "avg_return_pct": 11.64
+      },
+      "ABBV": {
+        "count": 1,
+        "win_rate_pct": 100.0,
+        "avg_return_pct": 18.98
+      },
+      "MRK": {
+        "count": 1,
+        "win_rate_pct": 100.0,
+        "avg_return_pct": 11.71
+      },
       "AAPL": {
         "count": 1,
         "win_rate_pct": 0.0,
