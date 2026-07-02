@@ -1,11 +1,81 @@
 {
   "version": "1.0",
-  "exported_at": "2026-07-01T20:33:32.234651",
+  "exported_at": "2026-07-02T20:01:20.158143",
   "system_status": "no_signals",
   "day_score": 0.0,
   "signals": [],
   "open_positions": [],
   "closed_trades": [
+    {
+      "ticker": "AMZN",
+      "entry_price": 261.260009765625,
+      "close_price": 242.6699981689453,
+      "entry_date": "2026-06-01",
+      "close_date": "2026-07-02",
+      "expected_return_pct": 4.0,
+      "actual_return_pct": -7.12,
+      "hold_days": 6,
+      "days_held": 7,
+      "exit_reason": "STOPPED_OUT",
+      "signal_reason": "meanrev_2",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "KO",
+      "entry_price": 78.63999938964844,
+      "close_price": 83.97000122070312,
+      "entry_date": "2026-06-02",
+      "close_date": "2026-07-02",
+      "expected_return_pct": 3.0,
+      "actual_return_pct": 6.78,
+      "hold_days": 4,
+      "days_held": 2,
+      "exit_reason": "SELL_SIGNAL",
+      "signal_reason": "trend_1",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "LLY",
+      "entry_price": 1082.199951171875,
+      "close_price": 1211.3399658203125,
+      "entry_date": "2026-06-02",
+      "close_date": "2026-07-02",
+      "expected_return_pct": 3.0,
+      "actual_return_pct": 11.93,
+      "hold_days": 4,
+      "days_held": 2,
+      "exit_reason": "SELL_SIGNAL",
+      "signal_reason": "trend_1",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "ABBV",
+      "entry_price": 212.92999267578125,
+      "close_price": 261.0400085449219,
+      "entry_date": "2026-06-02",
+      "close_date": "2026-07-02",
+      "expected_return_pct": 3.0,
+      "actual_return_pct": 22.59,
+      "hold_days": 4,
+      "days_held": 2,
+      "exit_reason": "SELL_SIGNAL",
+      "signal_reason": "trend_2",
+      "sell_signal_type": null
+    },
+    {
+      "ticker": "MRK",
+      "entry_price": 115.16999816894533,
+      "close_price": 129.52000427246094,
+      "entry_date": "2026-06-02",
+      "close_date": "2026-07-02",
+      "expected_return_pct": 3.0,
+      "actual_return_pct": 12.46,
+      "hold_days": 4,
+      "days_held": 2,
+      "exit_reason": "SELL_SIGNAL",
+      "signal_reason": "trend_4",
+      "sell_signal_type": null
+    },
     {
       "ticker": "KO",
       "entry_price": 78.63999938964844,
@@ -204,69 +274,39 @@
     }
   ],
   "performance_summary": {
-    "total_trades": 15,
-    "win_count": 4,
-    "loss_count": 11,
-    "win_rate_pct": 26.7,
-    "avg_return_pct": 1.79,
-    "avg_hold_days": 2.3,
-    "best_trade_pct": 18.98,
-    "worst_trade_pct": -8.08,
+    "total_trades": 13,
+    "win_count": 8,
+    "loss_count": 5,
+    "win_rate_pct": 61.5,
+    "avg_return_pct": 6.84,
+    "avg_hold_days": 3.2,
+    "best_trade_pct": 22.59,
+    "worst_trade_pct": -7.12,
     "by_ticker": {
       "AMZN": {
         "count": 2,
         "win_rate_pct": 0.0,
-        "avg_return_pct": -8.08
+        "avg_return_pct": -7.12
       },
       "KO": {
-        "count": 1,
+        "count": 2,
         "win_rate_pct": 100.0,
-        "avg_return_pct": 5.07
+        "avg_return_pct": 6.78
       },
       "LLY": {
-        "count": 1,
+        "count": 2,
         "win_rate_pct": 100.0,
-        "avg_return_pct": 11.64
+        "avg_return_pct": 11.93
       },
       "ABBV": {
-        "count": 1,
+        "count": 2,
         "win_rate_pct": 100.0,
-        "avg_return_pct": 18.98
+        "avg_return_pct": 22.59
       },
       "MRK": {
-        "count": 1,
+        "count": 2,
         "win_rate_pct": 100.0,
-        "avg_return_pct": 11.71
-      },
-      "AAPL": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "AMD": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "NVDA": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "MSFT": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "TSLA": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "SPY": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
+        "avg_return_pct": 12.46
       },
       "ABNB": {
         "count": 1,
