@@ -1,10 +1,23 @@
 {
   "version": "1.0",
-  "exported_at": "2026-07-02T20:34:42.605061",
-  "system_status": "no_signals",
+  "exported_at": "2026-07-06T11:01:36.728327",
+  "system_status": "active",
   "day_score": 0.0,
   "signals": [],
-  "open_positions": [],
+  "open_positions": [
+    {
+      "ticker": "AAPL",
+      "entry_price": 308.6300048828125,
+      "target_price": 313.25945495605464,
+      "stop_price": 299.3711047363281,
+      "expected_return_pct": 2.0,
+      "hold_days": 4,
+      "days_held": 0,
+      "entry_date": "2026-07-06",
+      "state": "PENDING",
+      "signal_reason": "trend_3"
+    }
+  ],
   "closed_trades": [
     {
       "ticker": "AMZN",
@@ -274,11 +287,11 @@
     }
   ],
   "performance_summary": {
-    "total_trades": 9,
+    "total_trades": 6,
     "win_count": 4,
-    "loss_count": 5,
-    "win_rate_pct": 44.4,
-    "avg_return_pct": 2.99,
+    "loss_count": 2,
+    "win_rate_pct": 66.7,
+    "avg_return_pct": 5.21,
     "avg_hold_days": 3.7,
     "best_trade_pct": 18.98,
     "worst_trade_pct": -8.08,
@@ -307,21 +320,6 @@
         "count": 1,
         "win_rate_pct": 100.0,
         "avg_return_pct": 11.71
-      },
-      "ABNB": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
-      },
-      "GOOGL": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": -3.86
-      },
-      "META": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": -0.47
       }
     }
   }
