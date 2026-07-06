@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "exported_at": "2026-07-06T11:02:49.297084",
+  "exported_at": "2026-07-06T20:33:52.748891",
   "system_status": "no_signals",
   "day_score": 0.0,
   "signals": [],
@@ -288,44 +288,39 @@
     }
   ],
   "performance_summary": {
-    "total_trades": 7,
-    "win_count": 4,
-    "loss_count": 3,
-    "win_rate_pct": 57.1,
-    "avg_return_pct": 4.46,
-    "avg_hold_days": 3.1,
-    "best_trade_pct": 18.98,
-    "worst_trade_pct": -8.08,
+    "total_trades": 10,
+    "win_count": 8,
+    "loss_count": 2,
+    "win_rate_pct": 80.0,
+    "avg_return_pct": 9.33,
+    "avg_hold_days": 3.0,
+    "best_trade_pct": 22.59,
+    "worst_trade_pct": -7.12,
     "by_ticker": {
       "AMZN": {
         "count": 2,
         "win_rate_pct": 0.0,
-        "avg_return_pct": -8.08
+        "avg_return_pct": -7.12
       },
       "KO": {
-        "count": 1,
+        "count": 2,
         "win_rate_pct": 100.0,
-        "avg_return_pct": 5.07
+        "avg_return_pct": 6.78
       },
       "LLY": {
-        "count": 1,
+        "count": 2,
         "win_rate_pct": 100.0,
-        "avg_return_pct": 11.64
+        "avg_return_pct": 11.93
       },
       "ABBV": {
-        "count": 1,
+        "count": 2,
         "win_rate_pct": 100.0,
-        "avg_return_pct": 18.98
+        "avg_return_pct": 22.59
       },
       "MRK": {
-        "count": 1,
+        "count": 2,
         "win_rate_pct": 100.0,
-        "avg_return_pct": 11.71
-      },
-      "AAPL": {
-        "count": 1,
-        "win_rate_pct": 0.0,
-        "avg_return_pct": 0.0
+        "avg_return_pct": 12.46
       }
     }
   }
